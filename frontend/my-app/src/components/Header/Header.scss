@@ -1,0 +1,56 @@
+@import '../../styles/variables';
+
+.header {
+  background-color: $bg-light;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+
+  .container {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .logo {
+    text-align: center;
+    h1 {
+      color: $gold-color;
+      font-family: $font-serif;
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+    span {
+      font-size: 10px;
+      color: $gold-color;
+      letter-spacing: 4px;
+    }
+  }
+
+  .main-nav {
+    display: flex;
+    gap: 50px;
+    a {
+      text-decoration: none;
+      color: $text-dark;
+      font-size: 14px;
+      font-weight: 500;
+      transition: 0.3s;
+      &.active { color: $gold-color; border-bottom: 1px solid $gold-color; }
+      &:hover { color: $gold-color; }
+    }
+  }
+
+  .sub-nav {
+    display: flex;
+    gap: 15px;
+    a {
+      text-decoration: none;
+      color: $text-light;
+      font-size: 12px;
+    }
+  }
+}

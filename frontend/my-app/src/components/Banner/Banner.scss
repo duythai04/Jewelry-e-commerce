@@ -1,0 +1,115 @@
+@import '../../styles/variables';
+
+.banner-swiper {
+  width: 100%;
+  height: 550px;
+  background-color: #e5e1da;
+
+  .mySwiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .content {
+    flex: 1;
+    padding-left: 10%;
+    z-index: 2;
+    background-color: #e5e1da; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+      font-family: $font-serif;
+      font-size: 38px;
+      line-height: 1.2;
+      color: $text-dark;
+      margin-bottom: 20px;
+      max-width: 500px;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    p {
+      color: $text-light;
+      font-style: italic;
+      margin-bottom: 30px;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease 0.2s;
+    }
+
+    .btn-cta {
+      width: fit-content;
+      background: #000;
+      color: #fff;
+      padding: 12px 30px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      letter-spacing: 1px;
+      &:hover {
+        background: $gold-color;
+      }
+    }
+  }
+
+  .image-wrapper {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .model-info {
+      position: absolute;
+      bottom: 20px;
+      right: 40px;
+      font-size: 11px;
+      color: #666;
+    }
+  }
+
+  .swiper-slide-active {
+    .content h2, .content p {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #bbb;
+    opacity: 1;
+    &-active {
+      background: $gold-color !important;
+      width: 25px;
+      border-radius: 5px;
+    }
+  }
+
+  .swiper-button-next, .swiper-button-prev {
+    color: #000;
+    &::after {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    &:hover {
+      color: $gold-color;
+    }
+  }
+}
