@@ -1,0 +1,186 @@
+@import '../../styles/variables';
+
+.collection-story {
+  padding: 120px 5%;
+  background-color: #fff; 
+  overflow: hidden;
+
+  .story-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; 
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+
+  // --- KHỐI ẢNH BÊN TRÁI ---
+  .story-image-main {
+    position: relative;
+
+    .image-wrapper {
+      width: 100%;
+      height: 650px;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.5s cubic-bezier(0, 0, 0.2, 1);
+      }
+
+      &:hover img {
+        transform: scale(1.08);
+      }
+    }
+
+    .year-tag {
+      position: absolute;
+      top: 40px;
+      left: -20px;
+      background: $text-dark;
+      color: #fff;
+      padding: 10px 25px;
+      font-family: $font-sans;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      transform: rotate(-90deg);
+      transform-origin: left top;
+    }
+
+    .floating-info {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      background: $bg-light;
+      padding: 30px 40px;
+      border: 1px solid rgba($gold-color, 0.2);
+      box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+
+      span {
+        font-family: $font-serif;
+        color: $gold-color;
+        font-style: italic;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  // --- KHỐI NỘI DUNG BÊN PHẢI ---
+  .story-content {
+    position: relative;
+    padding-left: 20px;
+
+    .text-wrapper {
+      .subtitle {
+        font-family: $font-sans;
+        font-size: 0.8rem;
+        color: $gold-color;
+        letter-spacing: 5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 25px;
+      }
+
+      .title {
+        font-family: $font-serif;
+        font-size: 3.5rem;
+        color: $text-dark;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        font-weight: 400;
+      }
+
+      .description {
+        font-family: $font-sans;
+        color: $text-light;
+        line-height: 2;
+        font-size: 1.05rem;
+        margin-bottom: 40px;
+        max-width: 450px;
+      }
+
+      .signature {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 50px;
+
+        .name {
+          font-family: 'Mrs Saint Delafield', cursive; // Nếu có font ký tên sẽ rất đẹp
+          font-family: $font-serif;
+          font-size: 1.5rem;
+          color: $gold-color;
+        }
+        .line {
+          width: 60px;
+          height: 1px;
+          background: $gold-color;
+        }
+      }
+
+      .btn-explore {
+        background: $text-dark;
+        color: #fff;
+        border: none;
+        padding: 18px 35px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-family: $font-sans;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.4s ease;
+
+        &:hover {
+          background: $gold-color;
+          transform: translateX(10px);
+        }
+      }
+    }
+
+    // Ảnh nhỏ bổ trợ
+    .story-image-secondary {
+      position: absolute;
+      top: -100px;
+      right: -10%;
+      width: 250px;
+      height: 320px;
+      border: 10px solid #fff;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+      z-index: 2;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 1024px) {
+  .collection-story {
+    padding: 80px 20px;
+    .story-container {
+      grid-template-columns: 1fr;
+      gap: 100px;
+    }
+    .story-content .story-image-secondary {
+      display: none; // Ẩn ảnh nhỏ trên mobile để tránh rối
+    }
+    .story-image-main .image-wrapper {
+      height: 450px;
+    }
+    .story-content .title {
+      font-size: 2.8rem;
+    }
+  }
+}

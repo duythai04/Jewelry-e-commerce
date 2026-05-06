@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react"; // Thêm useEffect vào đây
 import HomePage from "./pages/HomePage/HomePage";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const App = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, 
+      once: true,     
+      easing: 'ease-in-out', 
+      offset: 100,    
+    });
 
-  return(
+
+    AOS.refresh();
+  }, []);
+
+  return (
     <>
-    <HomePage/>
+      <HomePage />
     </>
-
-  )
-}
+  );
+};
 
 export default App;

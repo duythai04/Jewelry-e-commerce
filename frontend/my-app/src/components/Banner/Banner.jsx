@@ -41,7 +41,7 @@ const Banner = () => {
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect={'fade'} 
         speed={1000}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         navigation={true}
         loop={true}

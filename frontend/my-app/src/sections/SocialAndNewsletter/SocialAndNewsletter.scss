@@ -1,0 +1,180 @@
+$gold-color: #b4975a;
+$text-dark: #333333;
+$text-light: #666666;
+$bg-light: #fdfaf5;
+$font-serif: 'Playfair Display', serif;
+$font-sans: 'Inter', sans-serif;
+
+.social-newsletter-section {
+  background-color: $bg-light;
+  padding-bottom: 0; 
+
+  // --- INSTAGRAM SECTION ---
+  .instagram-container {
+    padding: 100px 0 60px;
+    
+    .insta-header {
+      text-align: center;
+      margin-bottom: 50px;
+      
+      .subtitle {
+        display: block;
+        font-family: $font-sans;
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+        color: $gold-color;
+        margin: 15px 0;
+      }
+      .insta-handle {
+        font-family: $font-serif;
+        font-size: 2rem;
+        color: $text-dark;
+        font-weight: 400;
+      }
+    }
+
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr); // 6 ảnh trải dài sang ngang
+      
+      .insta-item {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.8s ease;
+        }
+
+        .insta-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba($text-dark, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+
+        &:hover {
+          img { transform: scale(1.1); }
+          .insta-overlay { opacity: 1; }
+        }
+      }
+    }
+  }
+
+  // --- NEWSLETTER SECTION ---
+  .newsletter-container {
+    padding: 100px 5%;
+    background-color: #fff; // Nền màu kem đặc trưng
+    display: flex;
+    justify-content: center;
+
+    .newsletter-card {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+
+      .sub {
+        font-family: $font-sans;
+        font-size: 0.8rem;
+        color: $gold-color;
+        letter-spacing: 3px;
+        font-weight: 600;
+      }
+
+      .title {
+        font-family: $font-serif;
+        font-size: 2.8rem;
+        color: $text-dark;
+        margin: 20px 0;
+      }
+
+      .desc {
+        color: $text-light;
+        margin-bottom: 40px;
+        font-size: 1rem;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 0;
+        max-width: 600px;
+        margin: 0 auto;
+        border-bottom: 1.5px solid $text-dark; // Kiểu input thanh mảnh
+
+        input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          padding: 15px 0;
+          font-family: $font-sans;
+          font-size: 1rem;
+          outline: none;
+          color: $text-dark;
+
+          &::placeholder { color: #aaa; font-style: italic; }
+        }
+
+        button {
+          background: transparent;
+          border: none;
+          color: $text-dark;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          transition: color 0.3s;
+
+          &:hover { color: $gold-color; }
+        }
+      }
+
+      .policy {
+        margin-top: 25px;
+        font-size: 0.75rem;
+        color: #999;
+        u { cursor: pointer; &:hover { color: $gold-color; } }
+      }
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 1024px) {
+  .social-newsletter-section .instagram-container .insta-grid {
+    grid-template-columns: repeat(3, 1fr); // 3x2 trên tablet
+  }
+}
+
+@media (max-width: 600px) {
+  .social-newsletter-section {
+    .instagram-container .insta-grid {
+      grid-template-columns: repeat(2, 1fr); // 2x3 trên mobile
+    }
+    .newsletter-container .newsletter-card .title {
+      font-size: 2rem;
+    }
+    .newsletter-form {
+      flex-direction: column;
+      border-bottom: none !important;
+      gap: 20px;
+      input {
+        border-bottom: 1.5px solid $text-dark;
+        text-align: center;
+      }
+      button { justify-content: center; }
+    }
+  }
+}
