@@ -19,7 +19,7 @@ const Header = () => {
         </div>
 
         <div className="logo">
-          <h1>LUMINA</h1>
+          <h1>Chichi</h1>
           <span>JEWELRY</span>
         </div>
 

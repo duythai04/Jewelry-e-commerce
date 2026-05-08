@@ -5,38 +5,38 @@ import './FeaturedProducts.scss';
 const products = [
   {
     id: 1,
-    name: "Nhẫn Kim Cương Eternal",
+    name: "Nhẫn Bạc 925 Thanh Mảnh Đính Đá Princess - VCR06",
     category: "Rings",
-    price: "25,000,000đ",
-    img1: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1000",
-    img2: "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?q=80&w=1000",
+    price: "690.000đ",
+    img1: "https://bizweb.dktcdn.net/100/461/213/products/nhan-bac-925-thanh-manh-dinh-da-princess-vcr06.jpg?v=1774939136173",
+    img2: "https://bizweb.dktcdn.net/100/461/213/products/vcr08-vcr05-vcr06-vsr02-vcr02-vsr03-1689007356920.png?v=1774939132970",
     badge: "New"
   },
   {
     id: 2,
-    name: "Dây Chuyền Aura Gold",
+    name: "Vòng Cổ Bạc 925 Hình Cỏ 4 Lá Đá Nhảy 4 Leaf Clover - VGN08",
     category: "Necklaces",
-    price: "18,500,000đ",
-    img1: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000",
-    img2: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000",
+    price: "1.790.000đ",
+    img1: "https://bizweb.dktcdn.net/100/461/213/products/vgn08-1711427922882.png?v=1775808825887",
+    img2: "https://bizweb.dktcdn.net/100/461/213/products/vge11-vgn08-1711427920912.png?v=1775808825887",
     badge: ""
   },
   {
     id: 3,
-    name: "Bông Tai Sapphire",
+    name: "Khuyên Tai Bạc 925 Tròn Đá Nhảy Ngôi Sao Star Dancing Stone - VCE46",
     category: "Earrings",
-    price: "12,200,000đ",
-    img1: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQysIvl2VUlUnPVJOXMwruxz9VCrja1PrLDFZRgx-ngKFq6SY_bNWKV2xURl-03D1KwO7T-QlPQf04qLlF0dKk-TOB4vTMdBKp6fH1oX6qaEgveU7CrGMHTjfrnpHJ2TIz0tlG8668&usqp=CAc",
-    img2: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1000",
+    price: "1.690.000đ",
+    img1: "https://bizweb.dktcdn.net/100/461/213/products/vce46-1734512295529.jpg?v=1774802251623",
+    img2: "https://bizweb.dktcdn.net/thumb/medium/100/461/213/products/vce46-1736234287489.jpg?v=1774802254797",
     badge: "Sale"
   },
   {
     id: 4,
-    name: "Vòng Tay Moonlight",
+    name: "Kiềng Tay Bạc 925 Trái Tim Đá Nhảy Viền Đá Stone Bling Heart - VYB54",
     category: "Bracelets",
-    price: "32,000,000đ",
-    img1: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=1000",
-    img2: "https://bizweb.dktcdn.net/100/337/219/products/5f43e49b-a5ea-439d-b7e8-ed3142f47bae.jpg?v=1743479287637",
+    price: "2.390.000đ",
+    img1: "https://bizweb.dktcdn.net/100/461/213/products/kieng-tay-bac-925-trai-tim-da-nhay-dinh-da-vien-stone-bling-heart-vyb54.jpg?v=1775077075590",
+    img2: "https://bizweb.dktcdn.net/100/461/213/products/vyb54-1697526330669.png?v=1775077078213",
     badge: ""
   }
 ];

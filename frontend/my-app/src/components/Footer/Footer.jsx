@@ -14,12 +14,12 @@ const YoutubeIcon = () => (
 
 const Footer = () => {
   return (
-    <footer className="main-footer">
-      <div className="footer-container">
+    <footer className="main-footer" >
+      <div className="footer-container" data-aos="fade-up"  >
         
         {/* Cột 1: Thông tin thương hiệu */}
         <div className="footer-col brand-info">
-          <h2 className="footer-logo">LUMINA LUXURY</h2>
+          <h2 className="footer-logo"> Chichi JEWELRY</h2>
           <p className="brand-desc">
             Đánh thức vẻ đẹp vĩnh cửu thông qua những kiệt tác trang sức được chế tác thủ công tinh xảo nhất.
           </p>

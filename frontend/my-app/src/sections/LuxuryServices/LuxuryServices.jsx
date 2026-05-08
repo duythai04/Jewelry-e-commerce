@@ -31,10 +31,10 @@ const services = [
 
 const LuxuryServices = () => {
   return (
-    <section className="luxury-services">
+    <section className="luxury-services" data-aos="zoom-out-left" data-aos-duration="2000">
       <div className="services-container">
         {services.map((item) => (
-          <div key={item.id} className="service-item">
+          <div key={item.id} className="service-item" data-aos="fade-up">
             <div className="icon-box">
               {item.icon}
             </div>

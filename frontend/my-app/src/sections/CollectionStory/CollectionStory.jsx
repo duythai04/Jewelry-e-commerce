@@ -32,7 +32,7 @@ const CollectionStory = () => {
             </p>
             
             <div className="signature">
-              <span className="name">Lumina Luxury</span>
+              <span className="name">Chichi Luxury</span>
               <div className="line"></div>
             </div>
 

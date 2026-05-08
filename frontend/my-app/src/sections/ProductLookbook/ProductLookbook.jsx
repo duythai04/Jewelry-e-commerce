@@ -13,7 +13,7 @@ const lookbookData = {
       name: "Dây Chuyền Moonlight",
       price: "15.500.000đ",
       image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000",
-      top: "25%", // Vị trí điểm nhấn trên ảnh chính
+      top: "25%", 
       left: "45%"
     },
     {
@@ -32,12 +32,12 @@ const ProductLookbook = () => {
     <section className="product-lookbook">
       <div className="lookbook-container">
         
-        {/* Bên trái: Ảnh Lifestyle lớn với các điểm nhấn (Hotspots) */}
-        <div className="lookbook-visual">
+        {/* Ảnh Lifestyle lớn với các điểm nhấn (Hotspots) */}
+        <div className="lookbook-visual" data-aos="fade-right">
           <div className="image-wrapper">
             <img src={lookbookData.mainImage} alt="Lifestyle" />
             
-            {/* Các điểm tròn nhấp nháy trên ảnh */}
+            {/* điểm tròn trên ảnh */}
             {lookbookData.products.map((p) => (
               <div 
                 key={p.id} 
@@ -47,7 +47,6 @@ const ProductLookbook = () => {
                 <div className="pulse"></div>
                 <div className="icon"><Plus size={14} /></div>
                 
-                {/* Tooltip hiện ra khi hover vào điểm tròn */}
                 <div className="tooltip">
                   <img src={p.image} alt={p.name} />
                   <div>
@@ -60,15 +59,15 @@ const ProductLookbook = () => {
           </div>
         </div>
 
-        {/* Bên phải: Danh sách sản phẩm chi tiết */}
+        {/* Danh sách sản phẩm chi tiết */}
         <div className="lookbook-content">
-          <header>
-            <span className="sub">{lookbookData.subtitle}</span>
+          <header data-aos="fade-left">
+            <span className="sub" data-aos="fade-left">{lookbookData.subtitle}</span>
             <h2 className="title">{lookbookData.title}</h2>
             <p className="desc">{lookbookData.description}</p>
           </header>
 
-          <div className="product-list">
+          <div className="product-list" data-aos="fade-left">
             {lookbookData.products.map((product) => (
               <div key={product.id} className="mini-product-card">
                 <div className="img-box">
@@ -77,7 +76,7 @@ const ProductLookbook = () => {
                 <div className="info-box">
                   <h4>{product.name}</h4>
                   <p className="price">{product.price}</p>
-                  <button className="btn-link">
+                  <button className="btn-link" data-aos="fade-left">
                     CHI TIẾT <ArrowRight size={14} />
                   </button>
                 </div>
@@ -85,7 +84,7 @@ const ProductLookbook = () => {
             ))}
           </div>
 
-          <button className="btn-shop-all">MUA TRỌN BỘ SƯU TẬP</button>
+          <button className="btn-shop-all" data-aos="fade-left">MUA TRỌN BỘ SƯU TẬP</button>
         </div>
 
       </div>

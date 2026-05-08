@@ -30,15 +30,15 @@ const SocialAndNewsletter = () => {
     <section className="social-newsletter-section">
       {/* Instagram Section */}
       <div className="instagram-container">
-        <div className="insta-header">
+        <div className="insta-header" data-aos = "fade-left">
           <InstagramIcon size={28} color="#b4975a" />
-          <span className="subtitle">FOLLOW US ON INSTAGRAM</span>
-          <h2 className="insta-handle">@lumina.luxury</h2>
+          <span className="subtitle" data-aos = "fade-up">FOLLOW US ON INSTAGRAM</span>
+          <h2 className="insta-handle" data-aos = "fade-up">@lumina.luxury</h2>
         </div>
         
         <div className="insta-grid">
           {instagramPhotos.map((img, index) => (
-            <div key={index} className="insta-item">
+            <div key={index} className="insta-item" data-aos = "fade-left" data-aos-delay={index * 300}>
               <img src={img} alt={`Insta ${index}`} />
               <div className="insta-overlay">
                 <InstagramIcon size={30} color="#fff" />
@@ -49,7 +49,7 @@ const SocialAndNewsletter = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div className="newsletter-container">
+      <div className="newsletter-container" data-aos="fade-right">
         <div className="newsletter-card">
           <div className="content">
             <span className="sub">ĐẶC QUYỀW THÀNH VIÊN</span>
