@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Categories.scss';
 
 const categories = [
@@ -31,12 +32,12 @@ const Categories = () => {
         <h3>KHÁM PHÁ CÁC DANH MỤC</h3>
         <div className="category-list">
           {categories.map((cat, index) => (
-            <div key={index} className="category-item" data-aos="fade-up">
+            <Link to ={`danh-muc/${cat.id}`} key={index} className="category-item" data-aos="fade-up">
               <div className="icon-wrapper">
                 <img src={cat.image} alt={cat.name} className="category-img" />
               </div>
               <p className="category-name">{cat.name}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
