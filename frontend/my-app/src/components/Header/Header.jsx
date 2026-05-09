@@ -46,6 +46,7 @@ const Header = () => {
         <div className="header-icons-placeholder"></div>
       </div>
       
+      
       {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
     </header>
   );

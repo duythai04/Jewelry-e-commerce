@@ -13,7 +13,7 @@ const CategoryPage = () => {
     { title: 'Chất liệu', options: ['Vàng 18K', 'Vàng Trắng', 'Bạc S925', 'Kim Cương'] },
     { title: 'Khoảng giá', options: ['Dưới 5tr', '5tr - 10tr', '10tr - 20tr', 'Trên 20tr'] },
     { title: 'Bộ sưu tập', options: ['Spring Love', 'Eternal', 'Signature'] },
-  ];
+  ];  
 
   useEffect(() => {
     setLoading(true);
@@ -72,6 +72,7 @@ const CategoryPage = () => {
         
         {/* side-bar*/}
         <aside className="filter-sidebar">
+
           <div className="sidebar-header">
             <h3>BỘ LỌC</h3>
             <span>Xóa tất cả</span>
