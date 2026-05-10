@@ -33,6 +33,7 @@ const Header = () => {
             <a href="/bong-tai" onClick={() => setIsMenuOpen(false)}>Bông Tai</a>
             <a href="/vong-tay" onClick={() => setIsMenuOpen(false)}>Vòng Tay</a>
             <a href="/dong-ho" onClick={() => setIsMenuOpen(false)}>Đồng Hồ</a>
+            <a href="/cap_doi" onClick={() => setIsMenuOpen(false)}>Cặp đôi</a>
           </nav>
           
           <div className="sub-nav">
@@ -41,6 +42,7 @@ const Header = () => {
             <a href="/blog" onClick={() => setIsMenuOpen(false)}>Blog</a>
             <a href="/lien-he" onClick={() => setIsMenuOpen(false)}>Liên Hệ</a>
           </div>
+
         </div>
 
         <div className="header-icons-placeholder"></div>
