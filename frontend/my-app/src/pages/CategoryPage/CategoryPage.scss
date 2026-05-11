@@ -199,7 +199,7 @@
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); // 3 sản phẩm mỗi hàng khi có sidebar
+      grid-template-columns: repeat(3, 1fr);
       gap: 30px;
 
       @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); }
@@ -208,7 +208,7 @@
   }
 }
 
-// Giữ lại style Product Card từ bản trước nhưng làm gọn lại
+
 .product-card {
   background: #fff;
   transition: 0.4s;
@@ -246,15 +246,17 @@
   }
 
   .product-info {
-    padding: 15px;
+    padding: 20px;
     text-align: center;
+    
 
     .product-name {
       font-family: $font-serif;
-      font-size: 15px;
+      font-size: 12px;
       margin-bottom: 8px;
       color: $text-dark;
       height: 2.4em; overflow: hidden;
+      padding-bottom: 20px;
     }
 
     .product-price {
@@ -274,6 +276,75 @@
     .product-image {
       img { transform: scale(1.05); }
       .quick-view { transform: translateY(0); }
+    }
+  }
+}
+
+
+
+
+// phân trang
+.pagination {
+  margin-top: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  .page-btn {
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid #ddd;
+    background: #fff;
+
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover:not(:disabled) {
+      background: $gold-color;
+      color: #fff;
+      border-color: $border-color;
+
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background: $gold-color;
+      color: #fff;
+      border-color: $gold-color;
+
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Điều chỉnh nhỏ cho mobile
+@media (max-width: 576px) {
+  .pagination {
+    gap: 8px;
+    .page-node {
+      width: 35px;
+      height: 35px;
+      font-size: 13px;
     }
   }
 }

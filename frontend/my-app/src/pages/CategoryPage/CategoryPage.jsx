@@ -1,138 +1,414 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useSearchParams } from 'react-router-dom'; 
+import axios from 'axios';
+import AOS from 'aos'; 
+import 'aos/dist/aos.css';
 import './CategoryPage.scss';
 
 const CategoryPage = () => {
-  const { categoryId } = useParams(); 
-  const [categoryData, setCategoryData] = useState(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const categorySlug = searchParams.get('category'); 
+  
+  const [categoryInfo, setCategoryInfo] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const currentSort = searchParams.get('sort') || 'newest';
+  const currentMaterial = searchParams.get('material') || '';
+
+
+  // PAGINATION
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 15;
+
+  // Reset page khi đổi filter/sort/category
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [categorySlug, currentSort, currentMaterial]);
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+
+  const currentProducts = products.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const filterGroups = [
-    { title: 'Sản phẩm', options: ['Dây chuyền', 'Nhẫn', 'Vòng cổ', 'Bông tai', 'Đồng hồ']},
-    { title: 'Chất liệu', options: ['Vàng 18K', 'Vàng Trắng', 'Bạc S925', 'Kim Cương'] },
-    { title: 'Khoảng giá', options: ['Dưới 5tr', '5tr - 10tr', '10tr - 20tr', 'Trên 20tr'] },
-    { title: 'Bộ sưu tập', options: ['Spring Love', 'Eternal', 'Signature'] },
+    { title: 'Sản phẩm', key: 'product', options: ['Dây chuyền', 'Nhẫn', 'Vòng cổ', 'Bông tai', 'Đồng hồ']},
+    { title: 'Chất liệu', key: 'material', options: ['Vàng 18K', 'Vàng Trắng', 'Bạc S925', 'Kim Cương'] },
+    { title: 'Khoảng giá', key: 'price', options: ['Dưới 5tr', '5tr - 10tr', '10tr - 20tr', 'Trên 20tr'] },
   ];  
 
   useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      try {
-        const mockData = {
-          id: categoryId,
-          name: categoryId === 'nhan-cuoi' ? 'Nhẫn Cưới' : 
-                categoryId === 'day-chuyen' ? 'Dây Chuyền' : 'Trang Sức Cao Cấp',
-          description: 'Khám phá biểu tượng của sự sang trọng qua những thiết kế tinh xảo nhất.',
-          bannerImg: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80', 
-        };
-        
-        const mockProducts = [
-          { id: 1, name: 'Nhẫn Kim Cương Eternal', price: '25.000.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/nhan-bac-925-thanh-manh-dinh-da-princess-vcr06.jpg?v=1774939136173' },
-          { id: 2, name: 'Dây Chuyền Vàng 18K', price: '12.500.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vgn08-1711427922882.png?v=1775808825887' },
-          { id: 3, name: 'Bông Tai Ngọc Trai', price: '8.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vce46-1734512295529.jpg?v=1774802251623' },
-          { id: 4, name: 'Vòng Tay Rose Gold', price: '15.000.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/kieng-tay-bac-925-trai-tim-da-nhay-dinh-da-vien-stone-bling-heart-vyb54.jpg?v=1775077075590' },
-          { id: 5, name: 'Bông Tai Đính Đá', price: '5.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vce46-1734512295529.jpg?v=1774802251623' },
-          { id: 6, name: 'Nhẫn Bạc Minimalist', price: '1.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/nhan-bac-925-thanh-manh-dinh-da-princess-vcr06.jpg?v=1774939136173' },
-          { id: 7, name: 'Nhẫn Kim Cương Eternal', price: '25.000.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/nhan-bac-925-thanh-manh-dinh-da-princess-vcr06.jpg?v=1774939136173' },
-          { id: 8, name: 'Dây Chuyền Vàng 18K', price: '12.500.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vgn08-1711427922882.png?v=1775808825887' },
-          { id: 9, name: 'Bông Tai Ngọc Trai', price: '8.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vce46-1734512295529.jpg?v=1774802251623' },
-          { id: 10, name: 'Vòng Tay Rose Gold', price: '15.000.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/kieng-tay-bac-925-trai-tim-da-nhay-dinh-da-vien-stone-bling-heart-vyb54.jpg?v=1775077075590' },
-          { id: 11, name: 'Bông Tai Đính Đá', price: '5.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/vce46-1734512295529.jpg?v=1774802251623' },
-          { id: 12, name: 'Nhẫn Bạc Minimalist', price: '1.200.000đ', image: 'https://bizweb.dktcdn.net/100/461/213/products/nhan-bac-925-thanh-manh-dinh-da-princess-vcr06.jpg?v=1774939136173' },
-        ];
+    const fetchAllData = async () => {
+      setLoading(true);
 
-        setCategoryData(mockData);
-        setProducts(mockProducts);
-        setLoading(false);
+      try {
+
+        // API category
+        if (categorySlug) {
+          try {
+            const catRes = await axios.get(
+              `http://localhost:5000/api/categories/${categorySlug}`
+            );
+
+            if (catRes.data.success) {
+              setCategoryInfo(catRes.data.data);
+            }
+
+          } catch (err) {
+
+            setCategoryInfo({ 
+              name: categorySlug.replace(/-/g, ' ').toUpperCase(), 
+              description: "Bộ sưu tập trang sức tinh tế." 
+            });
+
+          }
+        }
+
+        // API products
+        const response = await axios.get(
+          `http://localhost:5000/api/products`,
+          {
+            params: {
+              category: categorySlug,
+              sort: currentSort,
+              material: currentMaterial
+            }
+          }
+        );
+
+        if (response.data.success) {
+
+          const dataFromApi = response.data.products || [];
+
+          setProducts(dataFromApi);
+
+          setTimeout(() => {
+            AOS.refresh();
+          }, 100);
+        }
+
       } catch (error) {
-        console.error("Lỗi:", error);
+
+        console.error("Lỗi khi tải dữ liệu:", error);
+
+      } finally {
+
+        setLoading(false);
+
       }
     };
 
-    fetchData();
-  }, [categoryId]);
+    fetchAllData();
 
-  if (loading) return <div className="loading">Hương sắc trang sức đang được tải...</div>;
+  }, [categorySlug, currentSort, currentMaterial]);
+
+  // Sort
+  const handleSortChange = (e) => {
+
+    searchParams.set('sort', e.target.value);
+
+    setSearchParams(searchParams);
+
+  };
+
+  // Material filter
+  const handleMaterialChange = (materialValue) => {
+
+    if (currentMaterial === materialValue) {
+
+      searchParams.delete('material');
+
+    } else {
+
+      searchParams.set('material', materialValue);
+
+    }
+
+    setSearchParams(searchParams);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        Đang tìm kiếm trang sức phù hợp...
+      </div>
+    );
+  }
 
   return (
     <div className="category-page">
-      {/* banner */}
+
+      {/* Banner */}
       <section className="category-banner">
+
         <div className="banner-overlay"></div>
-        <img src={categoryData.bannerImg} alt={categoryData.name} className="banner-bg" />
+
+        <img 
+          src={
+            categoryInfo?.image ||
+            'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80'
+          } 
+          alt={categoryInfo?.name} 
+          className="banner-bg" 
+        />
+
         <div className="banner-content">
-          <h1 className="category-title" data-aos="fade-up">{categoryData.name}</h1>
-          <p className="category-subtitle" data-aos="fade-up" data-aos-delay="200">{categoryData.description}</p>
+
+          <h1 className="category-title" data-aos="fade-up">
+            {categoryInfo?.name || "Trang Sức"}
+          </h1>
+
+          <p
+            className="category-subtitle"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            {categoryInfo?.description}
+          </p>
+
         </div>
       </section>
 
-      {/* 2. main-layout*/}
       <div className="container main-layout">
-        
-        {/* side-bar*/}
+
+        {/* Sidebar */}
         <aside className="filter-sidebar">
 
           <div className="sidebar-header">
             <h3>BỘ LỌC</h3>
-            <span>Xóa tất cả</span>
+
+            <span
+              className="clear-btn"
+              onClick={() =>
+                setSearchParams({ category: categorySlug })
+              }
+            >
+              Xóa tất cả
+            </span>
           </div>
-          
+
           {filterGroups.map((group, idx) => (
+
             <div key={idx} className="filter-group">
+
               <h4 className="filter-title">{group.title}</h4>
+
               <ul className="filter-options">
+
                 {group.options.map((opt, i) => (
+
                   <li key={i}>
+
                     <label className="checkbox-container">
-                      <input type="checkbox" />
+
+                      <input 
+                        type="checkbox" 
+                        checked={
+                          group.key === 'material'
+                            ? currentMaterial === opt
+                            : false
+                        }
+                        onChange={() =>
+                          group.key === 'material' &&
+                          handleMaterialChange(opt)
+                        }
+                      />
+
                       <span className="checkmark"></span>
+
                       {opt}
+
                     </label>
+
                   </li>
+
                 ))}
+
               </ul>
+
             </div>
+
           ))}
+
         </aside>
 
-        {/* products */}
+        {/* Products */}
         <main className="products-container">
-          {/* Top Info bar */}
+
           <div className="products-top-bar">
+
             <div className="breadcrumb">
-              <span>Trang chủ</span> / <span className="active">{categoryData.name}</span>
+              <span>Trang chủ</span> /
+              <span className="active">
+                {categoryInfo?.name}
+              </span>
             </div>
+
             <div className="sort-wrapper">
+
               <span>{products.length} Sản phẩm</span>
-              <select>
-                <option>Sắp xếp: Mới nhất</option>
-                <option>Giá: Thấp đến Cao</option>
-                <option>Giá: Cao đến Thấp</option>
+
+              <select
+                value={currentSort}
+                onChange={handleSortChange}
+              >
+                <option value="newest">Mới nhất</option>
+
+                <option value="price_asc">
+                  Giá: Thấp đến Cao
+                </option>
+
+                <option value="price_desc">
+                  Giá: Cao đến Thấp
+                </option>
+
               </select>
+
             </div>
+
           </div>
 
           {/* Product Grid */}
           <div className="product-grid">
-            {products.map((product, index) => (
-              <div key={product.id} className="product-card" data-aos="fade-up" data-aos-delay={index * 50}>
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                  <div className="product-badge">New</div>
-                  <div className="quick-view">Xem nhanh</div>
+
+            {products.length > 0 ? (
+
+              currentProducts.map((product, index) => (
+
+                <div 
+                  key={product.id || index} 
+                  className="product-card" 
+                  data-aos="fade-up" 
+                  data-aos-delay={(index % 12) * 50}
+                >
+
+                  <div className="product-image">
+
+                    <img 
+                      src={
+                        product.thumbnail ||
+                        'https://via.placeholder.com/400'
+                      } 
+                      alt={product.name} 
+                      onMouseOver={(e) =>
+                        product.hover_image &&
+                        (e.currentTarget.src = product.hover_image)
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.src = product.thumbnail)
+                      }
+                    />
+
+                    {product.is_new === 1 && (
+                      <div className="product-badge">
+                        New
+                      </div>
+                    )}
+
+                    <div className="quick-view">
+                      Xem nhanh
+                    </div>
+
+                  </div>
+
+                  <div className="product-info">
+
+                    <h3 className="product-name">
+                      {product.name}
+                    </h3>
+
+                    <p className="product-price">
+                      {parseFloat(product.price).toLocaleString('vi-VN')}đ
+                    </p>
+
+                    <button className="add-to-cart">
+                      THÊM VÀO GIỎ
+                    </button>
+
+                  </div>
+
                 </div>
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-price">{product.price}</p>
-                  <button className="add-to-cart">THÊM VÀO GIỎ</button>
-                </div>
+
+              ))
+
+            ) : (
+
+              <div className="no-products">
+                <p>
+                  Không có sản phẩm nào phù hợp với danh mục này.
+                </p>
               </div>
-            ))}
+
+            )}
+
           </div>
+
+          {/*  PAGINATION*/}
+          {totalPages > 1 && (
+
+            <div className="pagination">
+
+              <button
+                disabled={currentPage === 1}
+                onClick={() =>
+                  handlePageChange(currentPage - 1)
+                }
+                className="page-btn"
+              >
+                ←
+              </button>
+
+              {[...Array(totalPages)].map((_, index) => {
+
+                const page = index + 1;
+
+                return (
+                  <button
+                    key={page}
+                    onClick={() =>
+                      handlePageChange(page)
+                    }
+                    className={`page-btn ${
+                      currentPage === page ? 'active' : ''
+                    }`}
+                  >
+                    {page}
+                  </button>
+                );
+              })}
+
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() =>
+                  handlePageChange(currentPage + 1)
+                }
+                className="page-btn"
+              >
+                →
+              </button>
+
+            </div>
+
+          )}
+
         </main>
 
       </div>
+
     </div>
   );
 };

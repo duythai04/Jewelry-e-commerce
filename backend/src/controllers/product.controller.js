@@ -3,8 +3,10 @@ import getProducts from '../models/product.model.js';
 
 const getAllProducts = async (req, res) => {
     try {
+
+        console.log("Query nhận được:", req.query);
         const filters = {
-            category: req.query.category,
+            category: req.query.category || req.query.categories,
             material: req.query.material,
             keyword: req.query.keyword,
             minPrice: req.query.minPrice,

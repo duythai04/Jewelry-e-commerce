@@ -31,7 +31,7 @@ const App = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/danh-muc/:categoryId" element={<CategoryPage />} />
+          <Route path="/trang-suc" element={<CategoryPage />} />
           
         </Routes>
       </main>

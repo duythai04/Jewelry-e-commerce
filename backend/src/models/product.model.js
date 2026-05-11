@@ -1,9 +1,6 @@
 import pool from "../config/db.js";
 
-
-export const getProducts = async (
-  filters = {}
-) => {
+export const getProducts = async (filters = {}) => {
   let sql = `
     SELECT 
       p.id,
@@ -15,10 +12,8 @@ export const getProducts = async (
       p.is_new,
       p.material,
       p.stock,
-
       c.name AS category_name,
       c.slug AS category_slug,
-
       (
         SELECT pi.image_url
         FROM product_images pi
@@ -26,92 +21,67 @@ export const getProducts = async (
         AND pi.is_primary = 0
         LIMIT 1
       ) AS hover_image
-
     FROM products p
-
-    JOIN categories c
-      ON p.category_id = c.id
-
+    JOIN categories c ON p.category_id = c.id
     WHERE p.status = 'active'
   `;
 
   const params = [];
 
 
-  // category fiter
-
-  if (filters.category) {
-    sql += ` AND c.slug = ? `;
-    params.push(filters.category);
+  const categoryValue = filters.category || filters.categories;
+  
+  if (categoryValue) {
+  
+  
+    const normalizedCategory = categoryValue.replace(/_/g, '-');
+    
+  
+    sql += ` AND c.slug LIKE ? `;
+    params.push(`${normalizedCategory}%`); 
   }
 
-
-  // material
-
+  // Lọc theo chất liệu
   if (filters.material) {
     sql += ` AND p.material = ? `;
     params.push(filters.material);
   }
 
-
-  // search
-
+  // Tìm kiếm theo từ khóa
   if (filters.keyword) {
     sql += ` AND p.name LIKE ? `;
-    params.push(
-      `%${filters.keyword}%`
-    );
+    params.push(`%${filters.keyword}%`);
   }
 
-
-
-  // price filter
-
+  //  Lọc theo giá
   if (filters.minPrice) {
     sql += ` AND p.price >= ? `;
     params.push(filters.minPrice);
   }
-
   if (filters.maxPrice) {
     sql += ` AND p.price <= ? `;
     params.push(filters.maxPrice);
   }
 
-
-
-  // sort
+  // Sắp xếp 
   if (filters.sort === "price_asc") {
     sql += ` ORDER BY p.price ASC `;
-  } else if (
-    filters.sort === "price_desc"
-  ) {
+  } else if (filters.sort === "price_desc") {
     sql += ` ORDER BY p.price DESC `;
-  } else if (
-    filters.sort === "newest"
-  ) {
-    sql += ` ORDER BY p.created_at DESC `;
   } else {
+    // Mặc định luôn ưu tiên sản phẩm mới nhất
     sql += ` ORDER BY p.created_at DESC `;
   }
 
-
-
-  // limit
-
+  // 6. Giới hạn số lượng (Limit)
   if (filters.limit) {
     sql += ` LIMIT ? `;
-    params.push(
-      Number(filters.limit)
-    );
+    params.push(Number(filters.limit));
   }
 
 
 
-  const [rows] = await pool.execute(
-    sql,
-    params
-  );
-
+  const [rows] = await pool.execute(sql, params);
   return rows;
 };
 
