@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./Header.scss";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
   };
 
   return (
@@ -29,45 +34,51 @@ const Header = () => {
         {/* Wrapper chứa cả 2 nav để dễ điều khiển trên mobile */}
         <div className={`nav-wrapper ${isMenuOpen ? "open" : ""}`}>
           <nav className="main-nav">
-            <a href="/" className="active" onClick={() => setIsMenuOpen(false)}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+              onClick={closeMenu}
+            >
               Trang Chủ
-            </a>
-            <a href="/trang_suc" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/trang-suc" onClick={() => setIsMenuOpen(false)}>
               Sản Phẩm
-            </a>
-            <a href="/day-chuyen" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/day-chuyen" onClick={() => setIsMenuOpen(false)}>
               Dây Chuyền
-            </a>
-            <a href="/nhan" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/nhan" onClick={() => setIsMenuOpen(false)}>
               Nhẫn
-            </a>
-            <a href="/bong-tai" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/bong-tai" onClick={() => setIsMenuOpen(false)}>
               Bông Tai
-            </a>
-            <a href="/vong-tay" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/vong-tay" onClick={() => setIsMenuOpen(false)}>
               Vòng Tay
-            </a>
-            <a href="/dong-ho" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/dong-ho" onClick={() => setIsMenuOpen(false)}>
               Đồng Hồ
-            </a>
-            <a href="/cap_doi" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/cap_doi" onClick={() => setIsMenuOpen(false)}>
               Cặp đôi
-            </a>
+            </NavLink>
           </nav>
 
           <div className="sub-nav">
-            <a href="/bo-suu-tap" onClick={() => setIsMenuOpen(false)}>
+            <NavLink to="/bo-suu-tap" onClick={() => setIsMenuOpen(false)}>
               Bộ Sưu Tập
-            </a>
-            <a href="/uu-dai" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/uu-dai" onClick={() => setIsMenuOpen(false)}>
               Ưu Đãi
-            </a>
-            <a href="/blog" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/blog" onClick={() => setIsMenuOpen(false)}>
               Blog
-            </a>
-            <a href="/lien-he" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+            <NavLink to="/lien-he" onClick={() => setIsMenuOpen(false)}>
               Liên Hệ
-            </a>
+            </NavLink>
           </div>
         </div>
 
