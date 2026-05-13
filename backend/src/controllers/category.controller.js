@@ -11,14 +11,14 @@ const getCategoryDetail = async (req, res) => {
         data: {
           name: "Bộ Sưu Tập Trang Sức",
           description: "Khám phá những thiết kế tinh xảo và sang trọng nhất.",
-          image: null 
-        }
+          image: null,
+        },
       });
     }
 
     res.status(200).json({
       success: true,
-      data: category
+      data: category,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

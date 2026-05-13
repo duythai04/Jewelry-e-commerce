@@ -1,7 +1,7 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 .header {
-  background-color: $bg-light; 
+  background-color: $bg-light;
   border-bottom: 1px solid #eee;
   padding: 10px 0;
   position: sticky;
@@ -21,7 +21,7 @@
   .logo {
     text-align: center;
     cursor: pointer;
-    z-index: 1001; 
+    z-index: 1001;
 
     h1 {
       color: $gold-color;
@@ -58,9 +58,15 @@
     }
 
     &.active {
-      .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .bar:nth-child(2) { opacity: 0; }
-      .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .bar:nth-child(2) {
+        opacity: 0;
+      }
+      .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
     }
 
     @media (max-width: 1024px) {
@@ -88,7 +94,7 @@
       padding: 80px 30px;
       margin-left: 0;
       transition: 0.4s ease;
-      box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05);
       z-index: 1000;
 
       &.open {
@@ -101,7 +107,9 @@
     display: flex;
     gap: 30px;
 
-    @media (max-width: 1200px) { gap: 15px; }
+    @media (max-width: 1200px) {
+      gap: 15px;
+    }
 
     @media (max-width: 1024px) {
       flex-direction: column;
@@ -122,15 +130,21 @@
       transition: 0.3s;
       white-space: nowrap;
 
-      &.active { 
-        color: $gold-color; 
-        border-bottom: 1px solid $gold-color; 
+      &.active {
+        color: $gold-color;
+        border-bottom: 1px solid $gold-color;
       }
-      &:hover { color: $gold-color; }
+      &:hover {
+        color: $gold-color;
+      }
 
       @media (max-width: 1024px) {
         font-size: 16px;
-        &.active { border-bottom: none; border-left: 3px solid $gold-color; padding-left: 10px; }
+        &.active {
+          border-bottom: none;
+          border-left: 3px solid $gold-color;
+          padding-left: 10px;
+        }
       }
     }
   }
@@ -146,11 +160,13 @@
 
     a {
       text-decoration: none;
-      color: #777; 
+      color: #777;
       font-size: 12px;
       transition: 0.3s;
-      
-      &:hover { color: $gold-color; }
+
+      &:hover {
+        color: $gold-color;
+      }
 
       @media (max-width: 1024px) {
         font-size: 14px;
@@ -159,8 +175,10 @@
   }
 
   .header-icons-placeholder {
-    width: 25px; 
-    @media (min-width: 1025px) { display: none; }
+    width: 25px;
+    @media (min-width: 1025px) {
+      display: none;
+    }
   }
 
   .menu-overlay {
@@ -169,7 +187,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 999;
   }
 }

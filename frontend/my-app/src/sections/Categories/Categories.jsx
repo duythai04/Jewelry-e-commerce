@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Categories.scss';
-import mainCategories from './dataCategories';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Categories.scss";
+import mainCategories from "./dataCategories";
 
 const Categories = () => {
   return (
@@ -11,10 +10,10 @@ const Categories = () => {
         <h3>KHÁM PHÁ CÁC DANH MỤC</h3>
         <div className="category-list">
           {mainCategories.map((cat, index) => (
-            <Link 
-              key={index} 
-              to={`/trang-suc?category=${cat.slugPrefix}`} 
-              className="category-item" 
+            <Link
+              key={index}
+              to={`/trang-suc?category=${cat.slugPrefix}`}
+              className="category-item"
               data-aos="fade-up"
             >
               <div className="icon-wrapper">

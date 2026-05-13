@@ -2,21 +2,21 @@ $gold-color: #b4975a;
 $text-dark: #333333;
 $text-light: #666666;
 $bg-light: #fdfaf5;
-$font-serif: 'Playfair Display', serif;
-$font-sans: 'Inter', sans-serif;
+$font-serif: "Playfair Display", serif;
+$font-sans: "Inter", sans-serif;
 
 .social-newsletter-section {
   background-color: $bg-light;
-  padding-bottom: 0; 
+  padding-bottom: 0;
 
   // --- INSTAGRAM SECTION ---
   .instagram-container {
     padding: 100px 0 60px;
-    
+
     .insta-header {
       text-align: center;
       margin-bottom: 50px;
-      
+
       .subtitle {
         display: block;
         font-family: $font-sans;
@@ -36,7 +36,7 @@ $font-sans: 'Inter', sans-serif;
     .insta-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr); // 6 ảnh trải dài sang ngang
-      
+
       .insta-item {
         position: relative;
         aspect-ratio: 1 / 1;
@@ -65,8 +65,12 @@ $font-sans: 'Inter', sans-serif;
         }
 
         &:hover {
-          img { transform: scale(1.1); }
-          .insta-overlay { opacity: 1; }
+          img {
+            transform: scale(1.1);
+          }
+          .insta-overlay {
+            opacity: 1;
+          }
         }
       }
     }
@@ -122,7 +126,10 @@ $font-sans: 'Inter', sans-serif;
           outline: none;
           color: $text-dark;
 
-          &::placeholder { color: #aaa; font-style: italic; }
+          &::placeholder {
+            color: #aaa;
+            font-style: italic;
+          }
         }
 
         button {
@@ -137,7 +144,9 @@ $font-sans: 'Inter', sans-serif;
           cursor: pointer;
           transition: color 0.3s;
 
-          &:hover { color: $gold-color; }
+          &:hover {
+            color: $gold-color;
+          }
         }
       }
 
@@ -145,7 +154,12 @@ $font-sans: 'Inter', sans-serif;
         margin-top: 25px;
         font-size: 0.75rem;
         color: #999;
-        u { cursor: pointer; &:hover { color: $gold-color; } }
+        u {
+          cursor: pointer;
+          &:hover {
+            color: $gold-color;
+          }
+        }
       }
     }
   }
@@ -174,7 +188,9 @@ $font-sans: 'Inter', sans-serif;
         border-bottom: 1.5px solid $text-dark;
         text-align: center;
       }
-      button { justify-content: center; }
+      button {
+        justify-content: center;
+      }
     }
   }
 }

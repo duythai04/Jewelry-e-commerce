@@ -6,9 +6,11 @@ $bg-light: #fdfaf5;
 $white: #ffffff;
 $border-color: #e5e5e5;
 
-$font-serif: 'Playfair Display', serif;
-$font-sans: 'Inter', sans-serif;
+$font-serif: "Playfair Display", serif;
+$font-sans: "Inter", sans-serif;
 
 @mixin mobile {
-  @media (max-width: 768px) { @content; }
+  @media (max-width: 768px) {
+    @content;
+  }
 }

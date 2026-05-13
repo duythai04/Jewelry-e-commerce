@@ -1,11 +1,9 @@
-@import '../../styles/variables';
-
-
+@import "../../styles/variables";
 
 .hero-modern {
   width: 100%;
-  height: 100vh; 
-  background: #000; 
+  height: 100vh;
+  background: #000;
   position: relative;
   font-family: $font-sans;
 
@@ -21,16 +19,20 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: transform 2s ease-out; 
+      transition: transform 2s ease-out;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to right, rgba(0,0,0,0.8) 15%, rgba(0,0,0,0.2) 60%);
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.8) 15%,
+          rgba(0, 0, 0, 0.2) 60%
+        );
       }
     }
 
@@ -43,7 +45,7 @@
       display: flex;
       align-items: center;
       padding: 0 5%;
-      
+
       @media (min-width: 1024px) {
         padding-left: 8%;
       }
@@ -56,7 +58,7 @@
       .subtitle {
         font-size: 14px;
         letter-spacing: 6px;
-        color: $gold-color; 
+        color: $gold-color;
         margin-bottom: 25px;
         display: block;
         text-transform: uppercase;
@@ -65,17 +67,17 @@
       }
 
       .title {
-        font-size: clamp(3rem, 8vw, 7rem); 
+        font-size: clamp(3rem, 8vw, 7rem);
         font-family: $font-serif;
         line-height: 1.1;
         margin-bottom: 30px;
         font-weight: 400;
         text-transform: uppercase;
         letter-spacing: -1px;
-        
+
         span {
-            display: block;
-            color: $gold-color;
+          display: block;
+          color: $gold-color;
         }
       }
 
@@ -109,7 +111,7 @@
           background: $gold-color;
           border: 1px solid $gold-color;
           color: #fff;
-          &:hover { 
+          &:hover {
             background: transparent;
             color: $gold-color;
           }
@@ -117,11 +119,11 @@
 
         .btn-outline {
           background: transparent;
-          border: 1px solid rgba(255,255,255,0.3);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           color: #fff;
-          &:hover { 
-            background: #fff; 
-            color: $text-dark; 
+          &:hover {
+            background: #fff;
+            color: $text-dark;
             border-color: #fff;
           }
         }
@@ -135,11 +137,11 @@
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(15px);
       padding: 35px;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
       max-width: 280px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
       span {
         font-size: 11px;
         color: $gold-color;
@@ -164,7 +166,7 @@
     height: 8px;
     opacity: 0.3;
     transition: all 0.3s ease;
-    
+
     &-active {
       opacity: 1;
       background: $gold-color !important;
@@ -175,48 +177,74 @@
   // Animation khi slide active
   .swiper-slide-active {
     .slide-bg {
-        transform: scale(1.1); 
+      transform: scale(1.1);
     }
     .content-box {
-        .title, .description, .btn-group, .subtitle {
-            animation: fadeInUp 1s forwards;
-        }
+      .title,
+      .description,
+      .btn-group,
+      .subtitle {
+        animation: fadeInUp 1s forwards;
+      }
     }
   }
 }
 
 @media (max-width: 768px) {
   .hero-modern {
-    height: 100vh; 
+    height: 100vh;
 
     .container {
-        padding: 0 25px;
+      padding: 0 25px;
     }
 
     .content-box {
-        .subtitle { font-size: 12px; letter-spacing: 3px; }
-        .title { font-size: 3.2rem; }
-        .description { font-size: 1rem; margin-bottom: 30px; }
-        
-        .btn-group { 
-            flex-direction: column; 
-            gap: 12px;
-            button { width: 100%; padding: 15px; }
+      .subtitle {
+        font-size: 12px;
+        letter-spacing: 3px;
+      }
+      .title {
+        font-size: 3.2rem;
+      }
+      .description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        gap: 12px;
+        button {
+          width: 100%;
+          padding: 15px;
         }
+      }
     }
 
-    .floating-card { 
-        display: none; 
+    .floating-card {
+      display: none;
     }
   }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

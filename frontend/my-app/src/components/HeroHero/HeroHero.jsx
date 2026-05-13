@@ -1,36 +1,39 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, Parallax } from 'swiper/modules';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, Parallax } from "swiper/modules";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-import './HeroHero.scss';
+import "./HeroHero.scss";
 
 const HeroHero = () => {
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=75&w=1400&auto=format",
+      image:
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=75&w=1400&auto=format",
       title: "Radiant",
       subtitle: "EMERALD COLLECTION",
-      desc: "Vẻ đẹp vượt thời gian từ những viên kim cương tinh tuyển nhất."
+      desc: "Vẻ đẹp vượt thời gian từ những viên kim cương tinh tuyển nhất.",
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=75&w=1400&auto=format",
+      image:
+        "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=75&w=1400&auto=format",
       title: "Authentic",
       subtitle: "GOLDEN ESSENCE",
-      desc: "Nâng tầm đẳng cấp với trang sức vàng 18K chế tác thủ công."
+      desc: "Nâng tầm đẳng cấp với trang sức vàng 18K chế tác thủ công.",
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=75&w=1400&auto=format",
+      image:
+        "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=75&w=1400&auto=format",
       title: "Luxury",
       subtitle: "LIMITED EDITION",
-      desc: "Thiết kế độc quyền dành cho những khách hàng tinh tế nhất."
-    }
+      desc: "Thiết kế độc quyền dành cho những khách hàng tinh tế nhất.",
+    },
   ];
 
   return (
@@ -46,7 +49,6 @@ const HeroHero = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            
             {/* Background image (lazy load) */}
             <div className="slide-bg">
               <img src={slide.image} loading="lazy" alt={slide.title} />
@@ -74,7 +76,6 @@ const HeroHero = () => {
               <span>NEW ARRIVAL 2026</span>
               <p>Giới hạn 50 phiên bản toàn cầu</p>
             </div>
-
           </SwiperSlide>
         ))}
       </Swiper>

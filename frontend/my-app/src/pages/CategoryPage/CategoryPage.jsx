@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom'; 
-import axios from 'axios';
-import AOS from 'aos'; 
-import 'aos/dist/aos.css';
-import './CategoryPage.scss';
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "./CategoryPage.scss";
 
 const CategoryPage = () => {
+  const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const categorySlug = searchParams.get('category'); 
-  
+  const categorySlug = searchParams.get("category");
+
   const [categoryInfo, setCategoryInfo] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const currentSort = searchParams.get('sort') || 'newest';
-  const currentMaterial = searchParams.get('material') || '';
-
+  const currentSort = searchParams.get("sort") || "newest";
+  const currentMaterial = searchParams.get("material") || "";
 
   // PAGINATION
 
@@ -41,57 +41,61 @@ const CategoryPage = () => {
 
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   const filterGroups = [
-    { title: 'Sản phẩm', key: 'product', options: ['Dây chuyền', 'Nhẫn', 'Vòng cổ', 'Bông tai', 'Đồng hồ']},
-    { title: 'Chất liệu', key: 'material', options: ['Vàng 18K', 'Vàng Trắng', 'Bạc S925', 'Kim Cương'] },
-    { title: 'Khoảng giá', key: 'price', options: ['Dưới 5tr', '5tr - 10tr', '10tr - 20tr', 'Trên 20tr'] },
-  ];  
+    {
+      title: "Sản phẩm",
+      key: "product",
+      options: ["Dây chuyền", "Nhẫn", "Vòng cổ", "Bông tai", "Đồng hồ"],
+    },
+    {
+      title: "Chất liệu",
+      key: "material",
+      options: ["Vàng 18K", "Vàng Trắng", "Bạc S925", "Kim Cương"],
+    },
+    {
+      title: "Khoảng giá",
+      key: "price",
+      options: ["Dưới 5tr", "5tr - 10tr", "10tr - 20tr", "Trên 20tr"],
+    },
+  ];
 
   useEffect(() => {
     const fetchAllData = async () => {
       setLoading(true);
 
       try {
-
         // API category
         if (categorySlug) {
           try {
             const catRes = await axios.get(
-              `http://localhost:5000/api/categories/${categorySlug}`
+              `http://localhost:5000/api/categories/${categorySlug}`,
             );
 
             if (catRes.data.success) {
               setCategoryInfo(catRes.data.data);
             }
-
           } catch (err) {
-
-            setCategoryInfo({ 
-              name: categorySlug.replace(/-/g, ' ').toUpperCase(), 
-              description: "Bộ sưu tập trang sức tinh tế." 
+            setCategoryInfo({
+              name: categorySlug.replace(/-/g, " ").toUpperCase(),
+              description: "Bộ sưu tập trang sức tinh tế.",
             });
-
           }
         }
 
         // API products
-        const response = await axios.get(
-          `http://localhost:5000/api/products`,
-          {
-            params: {
-              category: categorySlug,
-              sort: currentSort,
-              material: currentMaterial
-            }
-          }
-        );
+        const response = await axios.get(`http://localhost:5000/api/products`, {
+          params: {
+            category: categorySlug,
+            sort: currentSort,
+            material: currentMaterial,
+          },
+        });
 
         if (response.data.success) {
-
           const dataFromApi = response.data.products || [];
 
           setProducts(dataFromApi);
@@ -100,42 +104,29 @@ const CategoryPage = () => {
             AOS.refresh();
           }, 100);
         }
-
       } catch (error) {
-
         console.error("Lỗi khi tải dữ liệu:", error);
-
       } finally {
-
         setLoading(false);
-
       }
     };
 
     fetchAllData();
-
   }, [categorySlug, currentSort, currentMaterial]);
 
   // Sort
   const handleSortChange = (e) => {
-
-    searchParams.set('sort', e.target.value);
+    searchParams.set("sort", e.target.value);
 
     setSearchParams(searchParams);
-
   };
 
   // Material filter
   const handleMaterialChange = (materialValue) => {
-
     if (currentMaterial === materialValue) {
-
-      searchParams.delete('material');
-
+      searchParams.delete("material");
     } else {
-
-      searchParams.set('material', materialValue);
-
+      searchParams.set("material", materialValue);
     }
 
     setSearchParams(searchParams);
@@ -151,23 +142,20 @@ const CategoryPage = () => {
 
   return (
     <div className="category-page">
-
       {/* Banner */}
       <section className="category-banner">
-
         <div className="banner-overlay"></div>
 
-        <img 
+        <img
           src={
             categoryInfo?.image ||
-            'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80'
-          } 
-          alt={categoryInfo?.name} 
-          className="banner-bg" 
+            "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80"
+          }
+          alt={categoryInfo?.name}
+          className="banner-bg"
         />
 
         <div className="banner-content">
-
           <h1 className="category-title" data-aos="fade-up">
             {categoryInfo?.name || "Trang Sức"}
           </h1>
@@ -179,131 +167,92 @@ const CategoryPage = () => {
           >
             {categoryInfo?.description}
           </p>
-
         </div>
       </section>
 
       <div className="container main-layout">
-
         {/* Sidebar */}
         <aside className="filter-sidebar">
-
           <div className="sidebar-header">
             <h3>BỘ LỌC</h3>
 
             <span
               className="clear-btn"
-              onClick={() =>
-                setSearchParams({ category: categorySlug })
-              }
+              onClick={() => setSearchParams({ category: categorySlug })}
             >
               Xóa tất cả
             </span>
           </div>
 
           {filterGroups.map((group, idx) => (
-
             <div key={idx} className="filter-group">
-
               <h4 className="filter-title">{group.title}</h4>
 
               <ul className="filter-options">
-
                 {group.options.map((opt, i) => (
-
                   <li key={i}>
-
                     <label className="checkbox-container">
-
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         checked={
-                          group.key === 'material'
+                          group.key === "material"
                             ? currentMaterial === opt
                             : false
                         }
                         onChange={() =>
-                          group.key === 'material' &&
-                          handleMaterialChange(opt)
+                          group.key === "material" && handleMaterialChange(opt)
                         }
                       />
 
                       <span className="checkmark"></span>
 
                       {opt}
-
                     </label>
-
                   </li>
-
                 ))}
-
               </ul>
-
             </div>
-
           ))}
-
         </aside>
 
         {/* Products */}
         <main className="products-container">
-
           <div className="products-top-bar">
-
             <div className="breadcrumb">
               <span>Trang chủ</span> /
-              <span className="active">
-                {categoryInfo?.name}
-              </span>
+              <span className="active">{categoryInfo?.name}</span>
             </div>
 
             <div className="sort-wrapper">
-
               <span>{products.length} Sản phẩm</span>
 
-              <select
-                value={currentSort}
-                onChange={handleSortChange}
-              >
+              <select value={currentSort} onChange={handleSortChange}>
                 <option value="newest">Mới nhất</option>
 
-                <option value="price_asc">
-                  Giá: Thấp đến Cao
-                </option>
+                <option value="price_asc">Giá: Thấp đến Cao</option>
 
-                <option value="price_desc">
-                  Giá: Cao đến Thấp
-                </option>
-
+                <option value="price_desc">Giá: Cao đến Thấp</option>
               </select>
-
             </div>
-
           </div>
 
           {/* Product Grid */}
           <div className="product-grid">
-
             {products.length > 0 ? (
-
               currentProducts.map((product, index) => (
-
-                <div 
-                  key={product.id || index} 
-                  className="product-card" 
-                  data-aos="fade-up" 
+                <div
+                  key={product.id || index}
+                  className="product-card"
+                  onClick={() => navigate(`/product/${product.id}`)}
+                  data-aos="fade-up"
                   data-aos-delay={(index % 12) * 50}
                 >
-
                   <div className="product-image">
-
-                    <img 
+                    <img
                       src={
-                        product.thumbnail ||
-                        'https://via.placeholder.com/400'
-                      } 
-                      alt={product.name} 
+                        product.thumbnail || "https://via.placeholder.com/400"
+                      }
+                      alt={product.name}
                       onMouseOver={(e) =>
                         product.hover_image &&
                         (e.currentTarget.src = product.hover_image)
@@ -314,76 +263,50 @@ const CategoryPage = () => {
                     />
 
                     {product.is_new === 1 && (
-                      <div className="product-badge">
-                        New
-                      </div>
+                      <div className="product-badge">New</div>
                     )}
 
-                    <div className="quick-view">
-                      Xem nhanh
-                    </div>
-
+                    <div className="quick-view">Xem nhanh</div>
                   </div>
 
                   <div className="product-info">
-
-                    <h3 className="product-name">
-                      {product.name}
-                    </h3>
+                    <h3 className="product-name">{product.name}</h3>
 
                     <p className="product-price">
-                      {parseFloat(product.price).toLocaleString('vi-VN')}đ
+                      {parseFloat(product.price).toLocaleString("vi-VN")}đ
                     </p>
 
-                    <button className="add-to-cart">
-                      THÊM VÀO GIỎ
-                    </button>
-
+                    <button className="add-to-cart">THÊM VÀO GIỎ</button>
                   </div>
-
                 </div>
-
               ))
-
             ) : (
-
               <div className="no-products">
-                <p>
-                  Không có sản phẩm nào phù hợp với danh mục này.
-                </p>
+                <p>Không có sản phẩm nào phù hợp với danh mục này.</p>
               </div>
-
             )}
-
           </div>
 
           {/*  PAGINATION*/}
           {totalPages > 1 && (
-
             <div className="pagination">
-
               <button
                 disabled={currentPage === 1}
-                onClick={() =>
-                  handlePageChange(currentPage - 1)
-                }
+                onClick={() => handlePageChange(currentPage - 1)}
                 className="page-btn"
               >
                 ←
               </button>
 
               {[...Array(totalPages)].map((_, index) => {
-
                 const page = index + 1;
 
                 return (
                   <button
                     key={page}
-                    onClick={() =>
-                      handlePageChange(page)
-                    }
+                    onClick={() => handlePageChange(page)}
                     className={`page-btn ${
-                      currentPage === page ? 'active' : ''
+                      currentPage === page ? "active" : ""
                     }`}
                   >
                     {page}
@@ -393,22 +316,15 @@ const CategoryPage = () => {
 
               <button
                 disabled={currentPage === totalPages}
-                onClick={() =>
-                  handlePageChange(currentPage + 1)
-                }
+                onClick={() => handlePageChange(currentPage + 1)}
                 className="page-btn"
               >
                 →
               </button>
-
             </div>
-
           )}
-
         </main>
-
       </div>
-
     </div>
   );
 };

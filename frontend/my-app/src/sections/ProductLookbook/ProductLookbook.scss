@@ -2,8 +2,8 @@ $gold-color: #b4975a;
 $text-dark: #333333;
 $text-light: #666666;
 $bg-light: #fdfaf5;
-$font-serif: 'Playfair Display', serif;
-$font-sans: 'Inter', sans-serif;
+$font-serif: "Playfair Display", serif;
+$font-sans: "Inter", sans-serif;
 
 .product-lookbook {
   padding: 100px 5%;
@@ -21,7 +21,7 @@ $font-sans: 'Inter', sans-serif;
   // --- PHẦN ẢNH BÊN TRÁI ---
   .lookbook-visual {
     position: relative;
-    
+
     .image-wrapper {
       position: relative;
       width: 100%;
@@ -51,7 +51,7 @@ $font-sans: 'Inter', sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         position: relative;
         z-index: 2;
       }
@@ -60,7 +60,7 @@ $font-sans: 'Inter', sans-serif;
         position: absolute;
         width: 100%;
         height: 100%;
-        background: rgba(255,255,255,0.8);
+        background: rgba(255, 255, 255, 0.8);
         border-radius: 50%;
         animation: pulse-ring 2s infinite;
       }
@@ -77,7 +77,7 @@ $font-sans: 'Inter', sans-serif;
         align-items: center;
         gap: 15px;
         width: 220px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
@@ -153,7 +153,11 @@ $font-sans: 'Inter', sans-serif;
         width: 100px;
         height: 100px;
         background: $bg-light;
-        img { width: 100%; height: 100%; object-fit: cover; }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
 
       .info-box {
@@ -179,7 +183,9 @@ $font-sans: 'Inter', sans-serif;
           gap: 5px;
           cursor: pointer;
           color: $text-dark;
-          &:hover { color: $gold-color; }
+          &:hover {
+            color: $gold-color;
+          }
         }
       }
     }
@@ -195,15 +201,23 @@ $font-sans: 'Inter', sans-serif;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s;
-      &:hover { background: $gold-color; }
+      &:hover {
+        background: $gold-color;
+      }
     }
   }
 }
 
 // Animation cho điểm nhấn
 @keyframes pulse-ring {
-  0% { transform: scale(0.5); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 
 // Responsive

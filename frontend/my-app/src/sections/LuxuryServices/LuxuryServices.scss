@@ -1,8 +1,8 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 .luxury-services {
   padding: 100px 5%;
-  background-color: $bg-light; 
-  
+  background-color: $bg-light;
+
   .services-container {
     max-width: 1300px;
     margin: 0 auto;
@@ -18,13 +18,13 @@
 
     &:hover {
       transform: translateY(-10px);
-      
+
       .icon-box {
         color: $gold-color;
         border-color: $gold-color;
         background-color: $bg-light;
       }
-      
+
       .service-divider {
         width: 60px;
       }
