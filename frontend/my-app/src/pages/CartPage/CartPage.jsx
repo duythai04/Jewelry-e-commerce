@@ -1,6 +1,6 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import {
   IoCloseOutline,
   IoAddOutline,
@@ -9,8 +9,13 @@ import {
 } from "react-icons/io5";
 import "./CartPage.scss";
 
-const CartPage = () => {
+const CartPage = ({ setIsCartOpen }) => {
   const { cartItems, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    if (setIsCartOpen) setIsCartOpen(false);
+  };
 
   return (
     <div className="cart-dropdown">
@@ -25,7 +30,13 @@ const CartPage = () => {
         <div className="empty-cart">
           <IoBagHandleOutline className="empty-icon" />
           <p>Giỏ hàng của bạn đang trống</p>
-          <button className="continue-shopping">TIẾP TỤC MUA SẮM</button>
+          <Link
+            to="/trang-suc"
+            onClick={handleClose}
+            className="continue-shopping"
+          >
+            TIẾP TỤC MUA SẮM
+          </Link>
         </div>
       ) : (
         <>
@@ -94,8 +105,18 @@ const CartPage = () => {
             <p className="tax-note">
               Thuế và phí vận chuyển tính khi thanh toán
             </p>
-            <button className="checkout-btn">THANH TOÁN NGAY</button>
-            <Link to="/cart-full" className="view-cart-link">
+            <NavLink
+              to="/check-out"
+              onClick={handleClose}
+              className="checkout-btn"
+            >
+              THANH TOÁN NGAY
+            </NavLink>
+            <Link
+              to="/cart-full"
+              onClick={handleClose}
+              className="view-cart-link"
+            >
               Xem chi tiết giỏ hàng
             </Link>
           </div>

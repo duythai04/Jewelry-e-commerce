@@ -110,7 +110,7 @@ const CartFullPage = () => {
                 <span className="total-amount">{(totalPrice + shippingFee).toLocaleString("vi-VN")}đ</span>
               </div>
 
-              <button className="checkout-btn" onClick={() => navigate("/checkout")}>
+              <button className="checkout-btn" onClick={() => navigate("/check-out")}>
                 TIẾN HÀNH THANH TOÁN
               </button>
 

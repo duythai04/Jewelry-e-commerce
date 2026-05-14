@@ -69,6 +69,7 @@
       padding: 10px 20px;
       font-size: 0.8rem;
       letter-spacing: 1px;
+      text-decoration: none;
       cursor: pointer;
       transition: all 0.3s;
 
@@ -225,12 +226,16 @@
       background: $text-dark;
       color: $white;
       border: none;
-      padding: 14px;
-      font-weight: 600;
+      padding: 10px 0 10px 0;
       letter-spacing: 1px;
       cursor: pointer;
       transition: background 0.3s;
+      text-decoration: none;
       margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
 
       &:hover {
         background: $gold-color;

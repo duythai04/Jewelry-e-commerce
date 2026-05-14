@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FiMinus, FiPlus, FiShoppingBag, FiCheck } from "react-icons/fi";
+import { useCart } from "../../context/CartContext";
 
 import "./ProductDetail.scss";
 
@@ -13,6 +14,24 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState("");
   const [quantity, setQuantity] = useState(1);
+
+
+  const { addToCart } = useCart();
+  // hàm xử lý thêm vào giở hàng
+  const hanldAddToCart = (e, product) => {
+    e.stopPropagation();
+
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      thumbnail: product.thumbnail,
+      material: product.material || "Tiêu chuẩn",
+      quantity: 1,
+    };
+
+    addToCart(cartItem);
+  };
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -143,9 +162,13 @@ const ProductDetailPage = () => {
               </div>
 
               <div className="action-btns">
-                <button className="btn-add-cart">
+                <button
+                  onClick={(e) => hanldAddToCart(e, product)}
+                  className="btn-add-cart"
+                >
                   <FiShoppingBag /> THÊM VÀO GIỎ
                 </button>
+
                 <button className="btn-buy-now">MUA NGAY</button>
               </div>
             </div>

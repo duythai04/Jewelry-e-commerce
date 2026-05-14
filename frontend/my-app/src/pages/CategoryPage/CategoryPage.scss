@@ -250,21 +250,91 @@
       padding: 3px 8px;
       text-transform: uppercase;
       letter-spacing: 1px;
+
+      &:hover {
+        .img-primary {
+          opacity: 0;
+          transform: scale(1.05);
+        }
+        .img-secondary {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        .product-actions {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
     }
 
-    .quick-view {
+    .product-actions {
       position: absolute;
-      bottom: 0;
+      bottom: 20px;
+      left: 0;
       width: 100%;
-      background: rgba($text-dark, 0.9);
-      color: #fff;
-      padding: 12px;
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 2px;
-      transform: translateY(100%);
-      transition: 0.3s;
-      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 10;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+      .action-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: $white;
+        color: $text-dark;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background: $gold-color;
+          color: $white;
+          transform: translateY(-3px);
+        }
+
+        svg {
+          transition: transform 0.3s ease;
+        }
+
+        &.add-to-cart {
+          &:hover {
+            background: $text-dark;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      img {
+        transform: scale(1.08);
+      }
+
+      .product-actions {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .action-btn:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .action-btn:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .action-btn:nth-child(3) {
+        transition-delay: 0.15s;
+      }
     }
   }
 

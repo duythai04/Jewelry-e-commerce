@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { ShoppingBag, Heart, Search } from "lucide-react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -25,8 +26,6 @@ const CategoryPage = () => {
 
     addToCart(cartItem);
   };
-
-
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -286,7 +285,14 @@ const CategoryPage = () => {
                       <div className="product-badge">New</div>
                     )}
 
-                    <div className="quick-view">Xem nhanh</div>
+                    <div className="product-actions">
+                      <button className="action-btn" title="Thêm vào yêu thích">
+                        <Heart size={20} />
+                      </button>
+                      <button className="action-btn" title="Xem nhanh">
+                        <Search size={20} />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="product-info">

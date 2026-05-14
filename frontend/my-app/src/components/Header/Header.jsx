@@ -18,7 +18,7 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    if (isCartOpen) setIsCartOpen(false); 
+    if (isCartOpen) setIsCartOpen(false);
   };
 
   const closeMenu = () => {
@@ -122,7 +122,7 @@ const Header = () => {
                 )}
               </div>
 
-              {isCartOpen && <CartPage />}
+              {isCartOpen && <CartPage setIsCartOpen={setIsCartOpen} />}
             </div>
 
             <NavLink to="/favorites" onClick={handleActionClick}>

@@ -14,6 +14,7 @@ import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetail/ProductDetail";
 import CartPage from "./pages/CartPage/CartPage";
 import CartFullPage from "./pages/CartFullPage/CartFullPage";
+import CheckoutPage from "./pages/CheckOutPage/CheckOutPage";
 
 const App = () => {
   useEffect(() => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/cart-full" element={<CartFullPage />} />
+          <Route path="/check-out" element={<CheckoutPage />} />
         </Routes>
       </main>
 
