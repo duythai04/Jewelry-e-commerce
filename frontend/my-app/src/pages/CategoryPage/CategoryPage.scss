@@ -390,65 +390,66 @@
 // phân trang
 .pagination {
   margin-top: 50px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-
-  flex-wrap: wrap;
+  gap: 8px; // Giảm gap một chút để tiết kiệm diện tích
+  flex-wrap: nowrap; // KHÔNG cho phép nhảy dòng
 
   .page-btn {
-    width: 44px;
-    height: 44px;
-
-    border: 1px solid #ddd;
+    min-width: 40px; // Dùng min-width thay vì width cố định
+    height: 40px;
+    padding: 0 5px;
+    border: 1px solid #eee;
     background: #fff;
-
-    font-size: 15px;
-    font-weight: 600;
-    color: #333;
-
-    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-dark;
+    border-radius: 4px; // Thay đổi border-radius nếu muốn hình vuông/tròn
     cursor: pointer;
-
-    transition: all 0.3s ease;
-
+    transition: all 0.2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &:hover:not(:disabled) {
-      background: $gold-color;
-      color: #fff;
-      border-color: $border-color;
-
-      transform: translateY(-2px);
+      border-color: $gold-color;
+      color: $gold-color;
     }
 
     &.active {
       background: $gold-color;
       color: #fff;
       border-color: $gold-color;
-
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 10px rgba($gold-color, 0.2);
     }
 
     &:disabled {
-      opacity: 0.4;
+      opacity: 0.3;
       cursor: not-allowed;
     }
-  }
-}
 
-// Điều chỉnh nhỏ cho mobile
-@media (max-width: 576px) {
-  .pagination {
-    gap: 8px;
-    .page-node {
-      width: 35px;
-      height: 35px;
-      font-size: 13px;
+    &.prev-next {
+      font-size: 18px;
+    }
+  }
+
+  .pagination-dots {
+    padding: 0 10px;
+    color: $text-light;
+    user-select: none;
+    font-weight: bold;
+  }
+
+  @media (max-width: 576px) {
+    gap: 4px;
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+    .pagination-dots {
+      padding: 0 4px;
     }
   }
 }

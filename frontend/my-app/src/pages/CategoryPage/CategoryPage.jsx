@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { ShoppingBag, Heart, Search } from "lucide-react";
+import { Heart, Search } from "lucide-react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -42,6 +42,36 @@ const CategoryPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 15;
+
+  const getPaginationGroup = () => {
+    const maxVisible = 6; // Tổng số phần tử tối đa muốn hiển thị
+
+    if (totalPages <= maxVisible) {
+      // Nếu tổng trang nhỏ hơn hoặc bằng 6, hiện tất cả: [1, 2, 3, 4, 5, 6]
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    // Nếu tổng trang > 6, xử lý dấu "..."
+    if (currentPage <= 3) {
+      // Đang ở các trang đầu: [1, 2, 3, 4, "...", totalPages]
+      return [1, 2, 3, 4, "...", totalPages];
+    }
+
+    if (currentPage >= totalPages - 2) {
+      // Đang ở các trang cuối: [1, "...", totalPages-3, totalPages-2, totalPages-1, totalPages]
+      return [
+        1,
+        "...",
+        totalPages - 3,
+        totalPages - 2,
+        totalPages - 1,
+        totalPages,
+      ];
+    }
+
+    // Đang ở giữa: [1, "...", currentPage, "...", totalPages]
+    return [1, "...", currentPage, "...", totalPages];
+  };
 
   // Reset page khi đổi filter/sort/category
   useEffect(() => {
@@ -318,37 +348,43 @@ const CategoryPage = () => {
             )}
           </div>
 
-          {/*  PAGINATION*/}
+          {/* pagination */}
           {totalPages > 1 && (
             <div className="pagination">
+              {/* Nút Previous */}
               <button
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
-                className="page-btn"
+                className="page-btn nav-btn"
               >
                 ←
               </button>
 
-              {[...Array(totalPages)].map((_, index) => {
-                const page = index + 1;
+              {getPaginationGroup().map((item, index) => {
+                if (item === "...") {
+                  return (
+                    <span key={`dots-${index}`} className="pagination-dots">
+                      ...
+                    </span>
+                  );
+                }
 
                 return (
                   <button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={`page-btn ${
-                      currentPage === page ? "active" : ""
-                    }`}
+                    key={item}
+                    onClick={() => handlePageChange(item)}
+                    className={`page-btn ${currentPage === item ? "active" : ""}`}
                   >
-                    {page}
+                    {item}
                   </button>
                 );
               })}
 
+              {/* Nút Next */}
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
-                className="page-btn"
+                className="page-btn nav-btn"
               >
                 →
               </button>
