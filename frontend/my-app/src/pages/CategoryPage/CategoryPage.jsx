@@ -4,9 +4,29 @@ import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./CategoryPage.scss";
+import { useCart } from "../../context/CartContext";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
+
+  const { addToCart } = useCart();
+  // hàm xử lý thêm vào giở hàng
+  const hanldAddToCart = (e, product) => {
+    e.stopPropagation();
+
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      thumbnail: product.thumbnail,
+      material: product.material || "Tiêu chuẩn",
+      quantity: 1,
+    };
+
+    addToCart(cartItem);
+  };
+
+
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -276,7 +296,12 @@ const CategoryPage = () => {
                       {parseFloat(product.price).toLocaleString("vi-VN")}đ
                     </p>
 
-                    <button className="add-to-cart">THÊM VÀO GIỎ</button>
+                    <button
+                      className="add-to-cart"
+                      onClick={(e) => hanldAddToCart(e, product)}
+                    >
+                      THÊM VÀO GIỎ
+                    </button>
                   </div>
                 </div>
               ))

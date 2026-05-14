@@ -12,6 +12,8 @@ import ScrollToTopOnLinkChange from "./components/ScrollToTop/ScrollToTop";
 import HomePage from "./pages/HomePage/HomePage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetail/ProductDetail";
+import CartPage from "./pages/CartPage/CartPage";
+import CartFullPage from "./pages/CartFullPage/CartFullPage";
 
 const App = () => {
   useEffect(() => {
@@ -33,7 +35,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/trang-suc" element={<CategoryPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage/>}/>
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart-full" element={<CartFullPage />} />
         </Routes>
       </main>
 
