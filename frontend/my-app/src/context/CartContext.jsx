@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
@@ -35,7 +34,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // remove item 
+  // remove item
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
@@ -54,7 +53,7 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // total 
+  // total
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0,

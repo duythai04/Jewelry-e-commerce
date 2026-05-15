@@ -1,46 +1,67 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Header.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
 import { FaCartShopping } from "react-icons/fa6";
 import { MdFavorite } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 
 import { useCart } from "../../context/CartContext";
-import CartPage from "../../pages/CartPage/CartPage";
+import { useFavorite } from "../../context/FavoriteContext";
+import CartPage from "../../pages/CartPage/CartDropdown";
+import FavoriteDropdown from "../../pages/FavoritePage/FavoriteDropdown";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isFavoriteOpen, setIsFavoriteOpen] = useState(false);
 
   const { cartItems } = useCart();
+  const { favoriteCount } = useFavorite();
 
   const cartRef = useRef(null);
+  const favoriteRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    if (isCartOpen) setIsCartOpen(false);
+    setIsCartOpen(false);
+    setIsFavoriteOpen(false);
   };
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   const toggleCart = (e) => {
     e.preventDefault();
     setIsCartOpen(!isCartOpen);
+    setIsFavoriteOpen(false); // Đóng favorite nếu đang mở
+    if (isMenuOpen) setIsMenuOpen(false);
+  };
+
+  const toggleFavorite = (e) => {
+    e.preventDefault();
+    setIsFavoriteOpen(!isFavoriteOpen);
+    setIsCartOpen(false); // Đóng cart nếu đang mở
+    if (isMenuOpen) setIsMenuOpen(false);
   };
 
   const handleActionClick = () => {
     setIsMenuOpen(false);
     setIsCartOpen(false);
+    setIsFavoriteOpen(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Kiểm tra click ngoài vùng Giỏ hàng
       if (cartRef.current && !cartRef.current.contains(event.target)) {
         setIsCartOpen(false);
       }
+      // Kiểm tra click ngoài vùng Yêu thích
+      if (favoriteRef.current && !favoriteRef.current.contains(event.target)) {
+        setIsFavoriteOpen(false);
+      }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -58,21 +79,15 @@ const Header = () => {
           <span className="bar"></span>
         </div>
 
-        <div className="logo">
+        <Link to="/" className="logo" onClick={handleActionClick}>
           <h1>Chichi</h1>
           <span>JEWELRY</span>
-        </div>
+        </Link>
 
-        {/* Wrapper chứa cả 2 nav để dễ điều khiển trên mobile */}
+        {/* Navigation Wrapper */}
         <div className={`nav-wrapper ${isMenuOpen ? "open" : ""}`}>
           <nav className="main-nav">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-              onClick={closeMenu}
-            >
+            <NavLink to="/" onClick={closeMenu} end>
               Trang Chủ
             </NavLink>
             <NavLink to="/trang-suc" onClick={closeMenu}>
@@ -111,6 +126,7 @@ const Header = () => {
           </div>
 
           <div className="action-nav">
+            {/* Cart Section */}
             <div className="cart-wrapper" ref={cartRef}>
               <div
                 className={`cart-trigger ${isCartOpen ? "active" : ""}`}
@@ -121,14 +137,26 @@ const Header = () => {
                   <span className="cart-count">{cartItems.length}</span>
                 )}
               </div>
-
               {isCartOpen && <CartPage setIsCartOpen={setIsCartOpen} />}
             </div>
 
-            <NavLink to="/favorites" onClick={handleActionClick}>
-              <MdFavorite />
-            </NavLink>
+            {/* Favorite Section */}
+            <div className="favorite-wrapper" ref={favoriteRef}>
+              <div
+                className={`favorite-trigger ${isFavoriteOpen ? "active" : ""}`}
+                onClick={toggleFavorite}
+              >
+                <MdFavorite />
+                {favoriteCount > 0 && (
+                  <span className="favorite-count">{favoriteCount}</span>
+                )}
+              </div>
+              {isFavoriteOpen && (
+                <FavoriteDropdown setIsFavoriteOpen={setIsFavoriteOpen} />
+              )}
+            </div>
 
+            {/* Profile Section */}
             <NavLink to="/profile" onClick={handleActionClick}>
               <FaUserAlt />
             </NavLink>
@@ -138,6 +166,7 @@ const Header = () => {
         <div className="header-icons-placeholder"></div>
       </div>
 
+      {/* Overlay khi mở menu mobile */}
       {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
     </header>
   );

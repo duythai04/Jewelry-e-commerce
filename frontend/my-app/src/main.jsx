@@ -4,9 +4,14 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import { CartProvider } from "./context/CartContext";
+import { FavoriteProvider } from "./context/FavoriteContext"; 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <CartProvider>
-    <App />
-  </CartProvider>,
+  <React.StrictMode>
+    <CartProvider>
+      <FavoriteProvider> 
+        <App />
+      </FavoriteProvider>
+    </CartProvider>
+  </React.StrictMode>
 );

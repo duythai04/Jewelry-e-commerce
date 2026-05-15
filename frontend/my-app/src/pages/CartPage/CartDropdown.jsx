@@ -7,7 +7,7 @@ import {
   IoRemoveOutline,
   IoBagHandleOutline,
 } from "react-icons/io5";
-import "./CartPage.scss";
+import "./CartDropdown.scss";
 
 const CartPage = ({ setIsCartOpen }) => {
   const { cartItems, removeFromCart, updateQuantity, totalPrice } = useCart();

@@ -20,6 +20,7 @@
 
   .logo {
     text-align: center;
+    text-decoration: none;
     cursor: pointer;
     z-index: 1001;
 
@@ -197,23 +198,32 @@
   align-items: center;
   gap: 30px;
 
-  .cart-wrapper {
-    position: relative; 
+  // Cả hai wrapper đều phải là position: relative
+  .cart-wrapper,
+  .favorite-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
 
-    .cart-trigger {
+    // Cấu trúc trigger bên trong giống nhau
+    .cart-trigger,
+    .favorite-trigger {
       cursor: pointer;
       font-size: 1.2rem;
       position: relative;
       transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      color: $text-dark; // Đảm bảo màu mặc định là màu tối
 
       &:hover,
       &.active {
         color: $gold-color;
       }
 
-      .cart-count {
+      // Badge số lượng (Dùng chung style)
+      .cart-count,
+      .favorite-count {
         position: absolute;
         top: -8px;
         right: -10px;
@@ -226,13 +236,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: 600;
+        line-height: 1;
       }
     }
   }
 
-  a {
-    color: inherit;
+  > a {
+    color: $text-dark;
     font-size: 1.2rem;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+
     &:hover {
       color: $gold-color;
     }

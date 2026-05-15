@@ -6,12 +6,21 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./CategoryPage.scss";
 import { useCart } from "../../context/CartContext";
+import { useFavorite } from "../../context/FavoriteContext";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
 
+  const { toggleFavorite, isFavorite } = useFavorite();
+
+  // Hàm xử lý yêu thích
+  const handleToggleFavorite = (e, product) => {
+    e.stopPropagation();
+    toggleFavorite(product);
+  };
+
   const { addToCart } = useCart();
-  // hàm xử lý thêm vào giở hàng
+  // hàm xử lý thêm vào giỏ hàng
   const hanldAddToCart = (e, product) => {
     e.stopPropagation();
 
@@ -316,8 +325,18 @@ const CategoryPage = () => {
                     )}
 
                     <div className="product-actions">
-                      <button className="action-btn" title="Thêm vào yêu thích">
-                        <Heart size={20} />
+                      <button
+                        className={`action-btn ${isFavorite(product.id) ? "active" : ""}`}
+                        title="Yêu thích"
+                        onClick={(e) => handleToggleFavorite(e, product)}
+                      >
+                        <Heart
+                          size={20}
+                          fill={isFavorite(product.id) ? "#b4975a" : "none"}
+                          color={
+                            isFavorite(product.id) ? "#b4975a" : "currentColor"
+                          }
+                        />
                       </button>
                       <button className="action-btn" title="Xem nhanh">
                         <Search size={20} />

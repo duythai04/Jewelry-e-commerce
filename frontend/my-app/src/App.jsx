@@ -12,10 +12,10 @@ import ScrollToTopOnLinkChange from "./components/ScrollToTop/ScrollToTop";
 import HomePage from "./pages/HomePage/HomePage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetail/ProductDetail";
-import CartPage from "./pages/CartPage/CartPage";
+import CartPage from "./pages/CartPage/CartDropdown";
 import CartFullPage from "./pages/CartFullPage/CartFullPage";
 import CheckoutPage from "./pages/CheckOutPage/CheckOutPage";
-
+import FavoriteDropdown from "./pages/FavoritePage/FavoriteDropdown";
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/cart-full" element={<CartFullPage />} />
           <Route path="/check-out" element={<CheckoutPage />} />
+          <Route path="/favorites" element={<FavoriteDropdown />} />
         </Routes>
       </main>
 
