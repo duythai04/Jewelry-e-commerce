@@ -1,3 +1,4 @@
+// Header.jsx
 import React, { useState, useEffect, useRef } from "react";
 import "./Header.scss";
 import { NavLink, Link } from "react-router-dom";
@@ -10,11 +11,13 @@ import { useCart } from "../../context/CartContext";
 import { useFavorite } from "../../context/FavoriteContext";
 import CartPage from "../../pages/CartPage/CartDropdown";
 import FavoriteDropdown from "../../pages/FavoritePage/FavoriteDropdown";
+import AuthPage from "../../pages/Auth/AuthPage";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isFavoriteOpen, setIsFavoriteOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   const { cartItems } = useCart();
   const { favoriteCount } = useFavorite();
@@ -33,15 +36,23 @@ const Header = () => {
   const toggleCart = (e) => {
     e.preventDefault();
     setIsCartOpen(!isCartOpen);
-    setIsFavoriteOpen(false); // Đóng favorite nếu đang mở
+    setIsFavoriteOpen(false);
     if (isMenuOpen) setIsMenuOpen(false);
   };
 
   const toggleFavorite = (e) => {
     e.preventDefault();
     setIsFavoriteOpen(!isFavoriteOpen);
-    setIsCartOpen(false); // Đóng cart nếu đang mở
+    setIsCartOpen(false);
     if (isMenuOpen) setIsMenuOpen(false);
+  };
+
+  // Hàm mở Modal Login/Register
+  const openAuthModal = () => {
+    setIsAuthOpen(true);
+    setIsMenuOpen(false);
+    setIsCartOpen(false);
+    setIsFavoriteOpen(false);
   };
 
   const handleActionClick = () => {
@@ -52,16 +63,13 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Kiểm tra click ngoài vùng Giỏ hàng
       if (cartRef.current && !cartRef.current.contains(event.target)) {
         setIsCartOpen(false);
       }
-      // Kiểm tra click ngoài vùng Yêu thích
       if (favoriteRef.current && !favoriteRef.current.contains(event.target)) {
         setIsFavoriteOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -69,7 +77,6 @@ const Header = () => {
   return (
     <header className="header">
       <div className="container">
-        {/* Hamburger Icon cho Mobile */}
         <div
           className={`hamburger ${isMenuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -84,7 +91,6 @@ const Header = () => {
           <span>JEWELRY</span>
         </Link>
 
-        {/* Navigation Wrapper */}
         <div className={`nav-wrapper ${isMenuOpen ? "open" : ""}`}>
           <nav className="main-nav">
             <NavLink to="/" onClick={closeMenu} end>
@@ -126,7 +132,7 @@ const Header = () => {
           </div>
 
           <div className="action-nav">
-            {/* Cart Section */}
+            {/* cart*/}
             <div className="cart-wrapper" ref={cartRef}>
               <div
                 className={`cart-trigger ${isCartOpen ? "active" : ""}`}
@@ -140,7 +146,7 @@ const Header = () => {
               {isCartOpen && <CartPage setIsCartOpen={setIsCartOpen} />}
             </div>
 
-            {/* Favorite Section */}
+            {/* favorite*/}
             <div className="favorite-wrapper" ref={favoriteRef}>
               <div
                 className={`favorite-trigger ${isFavoriteOpen ? "active" : ""}`}
@@ -156,17 +162,18 @@ const Header = () => {
               )}
             </div>
 
-            {/* Profile Section */}
-            <NavLink to="/profile" onClick={handleActionClick}>
-              <FaUserAlt />
-            </NavLink>
+            {/* profile*/}
+            <div className="profile-wrapper">
+              <button className="profile-trigger" onClick={openAuthModal}>
+                <FaUserAlt />
+              </button>
+            </div>
           </div>
         </div>
-
-        <div className="header-icons-placeholder"></div>
       </div>
 
-      {/* Overlay khi mở menu mobile */}
+      <AuthPage isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
+
       {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
     </header>
   );

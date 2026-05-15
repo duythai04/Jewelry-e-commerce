@@ -16,6 +16,7 @@ import CartPage from "./pages/CartPage/CartDropdown";
 import CartFullPage from "./pages/CartFullPage/CartFullPage";
 import CheckoutPage from "./pages/CheckOutPage/CheckOutPage";
 import FavoriteDropdown from "./pages/FavoritePage/FavoriteDropdown";
+import AuthPage from "./pages/Auth/AuthPage";
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/cart-full" element={<CartFullPage />} />
           <Route path="/check-out" element={<CheckoutPage />} />
           <Route path="/favorites" element={<FavoriteDropdown />} />
+          <Route path="/auth" element={<AuthPage/>}/>
         </Routes>
       </main>
 

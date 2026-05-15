@@ -1,0 +1,204 @@
+// AuthPage.scss
+$gold: #b4975a;
+$gold-dark: #8e7343;
+$dark: #1a1a1a;
+$light-gray: #f9f9f9;
+$border: #e5e5e5;
+
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+
+  .auth-modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      transition: 0.3s;
+      &:hover {
+        color: $gold;
+        transform: rotate(90deg);
+      }
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+      h3 {
+        font-family: "Playfair Display", serif; // Font chữ sang trọng
+        font-size: 1.8rem;
+        color: $dark;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 0.85rem;
+        color: #777;
+      }
+    }
+
+    .auth-form {
+      .input-group {
+        position: relative;
+        margin-bottom: 18px;
+        .icon {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $gold;
+        }
+        input {
+          width: 100%;
+          padding: 12px 0 12px 30px;
+          border: none;
+          border-bottom: 1px solid $border;
+          font-size: 0.95rem;
+          outline: none;
+          transition: 0.3s;
+          &:focus {
+            border-bottom-color: $gold;
+          }
+        }
+      }
+
+      .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        font-size: 0.8rem;
+        color: #666;
+        .remember-me {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+        }
+        .forgot-text {
+          color: #999;
+          text-decoration: none;
+          &:hover {
+            color: $gold;
+          }
+        }
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 14px;
+        background: $dark;
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        &:hover {
+          background: $gold;
+        }
+      }
+    }
+
+    .auth-divider {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: $border;
+      }
+      span {
+        background: #fff;
+        padding: 0 10px;
+        position: relative;
+        font-size: 0.75rem;
+        color: #bbb;
+      }
+    }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 25px;
+      .social-btn {
+        padding: 10px;
+        border: 1px solid $border;
+        background: #fff;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background: $light-gray;
+          border-color: #ccc;
+        }
+      }
+    }
+
+    .auth-footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+      button {
+        background: none;
+        border: none;
+        color: $gold;
+        font-weight: 600;
+        cursor: pointer;
+        margin-left: 5px;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
