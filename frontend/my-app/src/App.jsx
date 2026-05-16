@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AOS from "aos";
-
 import "aos/dist/aos.css";
 import "./App.css";
 
+import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ScrollToTopOnLinkChange from "./components/ScrollToTop/ScrollToTop";
-
 import HomePage from "./pages/HomePage/HomePage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetail/ProductDetail";
@@ -17,6 +16,7 @@ import CartFullPage from "./pages/CartFullPage/CartFullPage";
 import CheckoutPage from "./pages/CheckOutPage/CheckOutPage";
 import FavoriteDropdown from "./pages/FavoritePage/FavoriteDropdown";
 import AuthPage from "./pages/Auth/AuthPage";
+
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -28,26 +28,28 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTopOnLinkChange />
-
-      <Header />
-
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/trang-suc" element={<CategoryPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/cart-full" element={<CartFullPage />} />
-          <Route path="/check-out" element={<CheckoutPage />} />
-          <Route path="/favorites" element={<FavoriteDropdown />} />
-          <Route path="/auth" element={<AuthPage/>}/>
-        </Routes>
-      </main>
-
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTopOnLinkChange />
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/trang-suc" element={<CategoryPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/cart-full" element={<CartFullPage />} />
+            <Route path="/check-out" element={<CheckoutPage />} />
+            <Route path="/favorites" element={<FavoriteDropdown />} />
+            <Route
+              path="/auth"
+              element={<AuthPage isOpen={true} onClose={() => {}} />}
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 };
 

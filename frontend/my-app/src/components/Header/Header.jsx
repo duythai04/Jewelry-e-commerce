@@ -1,5 +1,5 @@
 // Header.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Header.scss";
 import { NavLink, Link } from "react-router-dom";
 
@@ -9,6 +9,8 @@ import { FaUserAlt } from "react-icons/fa";
 
 import { useCart } from "../../context/CartContext";
 import { useFavorite } from "../../context/FavoriteContext";
+import { AuthContext } from "../../context/AuthContext";
+
 import CartPage from "../../pages/CartPage/CartDropdown";
 import FavoriteDropdown from "../../pages/FavoritePage/FavoriteDropdown";
 import AuthPage from "../../pages/Auth/AuthPage";
@@ -18,17 +20,22 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isFavoriteOpen, setIsFavoriteOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+  const { user, logout } = useContext(AuthContext);
   const { cartItems } = useCart();
   const { favoriteCount } = useFavorite();
 
   const cartRef = useRef(null);
   const favoriteRef = useRef(null);
+  const profileRef = useRef(null);
 
+  // ===== Toggle =====
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     setIsCartOpen(false);
     setIsFavoriteOpen(false);
+    setIsProfileOpen(false);
   };
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -37,30 +44,32 @@ const Header = () => {
     e.preventDefault();
     setIsCartOpen(!isCartOpen);
     setIsFavoriteOpen(false);
-    if (isMenuOpen) setIsMenuOpen(false);
+    setIsProfileOpen(false);
   };
 
   const toggleFavorite = (e) => {
     e.preventDefault();
     setIsFavoriteOpen(!isFavoriteOpen);
     setIsCartOpen(false);
-    if (isMenuOpen) setIsMenuOpen(false);
+    setIsProfileOpen(false);
   };
 
-  // Hàm mở Modal Login/Register
   const openAuthModal = () => {
     setIsAuthOpen(true);
     setIsMenuOpen(false);
     setIsCartOpen(false);
     setIsFavoriteOpen(false);
+    setIsProfileOpen(false);
   };
 
   const handleActionClick = () => {
     setIsMenuOpen(false);
     setIsCartOpen(false);
     setIsFavoriteOpen(false);
+    setIsProfileOpen(false);
   };
 
+  // ===== Click outside =====
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (cartRef.current && !cartRef.current.contains(event.target)) {
@@ -69,7 +78,11 @@ const Header = () => {
       if (favoriteRef.current && !favoriteRef.current.contains(event.target)) {
         setIsFavoriteOpen(false);
       }
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -77,6 +90,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="container">
+        {/* ===== HAMBURGER ===== */}
         <div
           className={`hamburger ${isMenuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -86,11 +100,13 @@ const Header = () => {
           <span className="bar"></span>
         </div>
 
+        {/* ===== LOGO ===== */}
         <Link to="/" className="logo" onClick={handleActionClick}>
           <h1>Chichi</h1>
           <span>JEWELRY</span>
         </Link>
 
+        {/* ===== NAV ===== */}
         <div className={`nav-wrapper ${isMenuOpen ? "open" : ""}`}>
           <nav className="main-nav">
             <NavLink to="/" onClick={closeMenu} end>
@@ -131,8 +147,9 @@ const Header = () => {
             </NavLink>
           </div>
 
+          {/* ===== ACTION ===== */}
           <div className="action-nav">
-            {/* cart*/}
+            {/* CART */}
             <div className="cart-wrapper" ref={cartRef}>
               <div
                 className={`cart-trigger ${isCartOpen ? "active" : ""}`}
@@ -143,10 +160,11 @@ const Header = () => {
                   <span className="cart-count">{cartItems.length}</span>
                 )}
               </div>
+
               {isCartOpen && <CartPage setIsCartOpen={setIsCartOpen} />}
             </div>
 
-            {/* favorite*/}
+            {/* FAVORITE */}
             <div className="favorite-wrapper" ref={favoriteRef}>
               <div
                 className={`favorite-trigger ${isFavoriteOpen ? "active" : ""}`}
@@ -157,23 +175,61 @@ const Header = () => {
                   <span className="favorite-count">{favoriteCount}</span>
                 )}
               </div>
+
               {isFavoriteOpen && (
                 <FavoriteDropdown setIsFavoriteOpen={setIsFavoriteOpen} />
               )}
             </div>
 
-            {/* profile*/}
-            <div className="profile-wrapper">
-              <button className="profile-trigger" onClick={openAuthModal}>
-                <FaUserAlt />
-              </button>
+            {/* USER */}
+            <div className="profile-wrapper" ref={profileRef}>
+              {!user ? (
+                <button className="profile-trigger" onClick={openAuthModal}>
+                  <FaUserAlt />
+                </button>
+              ) : (
+                <div className="user-logged-in">
+                  <div
+                    className="profile-trigger active"
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  >
+                    <FaUserAlt />
+                    <span className="user-name">
+                      {user?.full_name?.split("@")[0] || "User"}
+                    </span>
+                  </div>
+
+                  {isProfileOpen && (
+                    <div className="profile-dropdown">
+                      <hr />
+
+                      <Link
+                        to="/order-history"
+                        className="dropdown-item"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        Đơn hàng
+                      </Link>
+
+                      <button
+                        className="dropdown-item logout-btn"
+                        onClick={logout}
+                      >
+                        Đăng xuất
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
+      {/* ===== MODAL AUTH ===== */}
       <AuthPage isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
 
+      {/* ===== OVERLAY ===== */}
       {isMenuOpen && <div className="menu-overlay" onClick={toggleMenu}></div>}
     </header>
   );
